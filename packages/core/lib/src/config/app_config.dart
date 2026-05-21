@@ -1,8 +1,8 @@
 abstract class AppConfig {
   static late AppConfig instance;
 
-  abstract String baseUrl;
-  abstract Environment environment;
+  String get baseUrl;
+  Environment get environment;
 }
 
 enum Environment {

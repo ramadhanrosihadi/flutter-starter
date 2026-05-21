@@ -6,9 +6,15 @@ import 'auth_provider.dart';
 import 'auth_state.dart';
 
 /// Compatible with GoRouter's [redirect] callback: `redirect: authRedirect`.
+///
+/// Returns null during [AuthInitial] and [AuthLoading] to prevent a flash
+/// redirect to /login while the session check is still in progress.
 String? authRedirect(BuildContext context, GoRouterState state) {
   final authState =
       ProviderScope.containerOf(context).read(authNotifierProvider);
+
+  if (authState is AuthInitial || authState is AuthLoading) return null;
+
   final isAuthenticated = authState is AuthAuthenticated;
   final isOnLoginPage = state.matchedLocation == '/login';
 

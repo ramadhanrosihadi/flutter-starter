@@ -191,12 +191,24 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 
 - [ ] Buat Flutter project:
   ```bash
-  flutter create --org id.rmq --platforms android,ios,web --project-name app_main apps/main
+  flutter create --no-pub --org id.rmq --platforms android,ios,web --project-name app_main apps/main
   ```
+  > `--no-pub` mencegah `pub get` otomatis — workspace belum valid sampai `apps/main` ditambahkan ke root `pubspec.yaml` dan punya `resolution: workspace`.
 - [ ] Hapus boilerplate: `lib/main.dart` dan `test/widget_test.dart`
 - [ ] Update `apps/main/pubspec.yaml`:
   - `name: app_main`, `resolution: workspace`
-  - deps: `core`, `features_shared`
+  - deps: `core`, `features_shared`, `flutter_localizations`, `intl: any`
+  ```yaml
+  dependencies:
+    flutter:
+      sdk: flutter
+    flutter_localizations:
+      sdk: flutter
+    intl: any
+    core:
+    features_shared:
+  ```
+  > `flutter_localizations` dan `intl: any` diperlukan secara eksplisit agar `AppLocalizations.localizationsDelegates` bisa dipakai di `MaterialApp.router`.
 - [ ] Tambahkan `apps/main` ke workspace di root `pubspec.yaml`:
   ```yaml
   workspace:
@@ -220,7 +232,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   ```dart
   class MainConfig extends AppConfig {
     @override
-    final Environment environment = Environment.fromString(
+    Environment get environment => Environment.fromString(
       const String.fromEnvironment('ENV', defaultValue: 'dev'),
     );
     @override
@@ -230,21 +242,109 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
     };
   }
   ```
-- [ ] `lib/bootstrap.dart` — async init:
+  > `AppConfig` mendeklarasikan getter — implementasi HARUS berupa getter, bukan `final` field atau abstract field.
+- [ ] `lib/home/home_screen.dart` — placeholder home screen:
   ```dart
-  Future<void> bootstrap(Widget app) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    FlutterError.onError = (details) { /* log error */ };
-    runApp(app);
+  class HomeScreen extends StatelessWidget {
+    const HomeScreen({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Home')),
+        body: const Center(child: Text('Welcome!')),
+      );
+    }
   }
   ```
-- [ ] `lib/app.dart` — `ProviderScope` + `MaterialApp.router` dengan tema dari `core` dan router dari `app_router.dart`
-- [ ] `lib/router/app_router.dart` — `GoRouter` instance: shared routes dari `features_shared` (termasuk `AuthGuard`) + home route eksklusif main
+  > Placeholder agar router bisa compile. Akan dikembangkan di sprint berikutnya.
+- [ ] `lib/bootstrap.dart` — async init tanpa parameter:
+  ```dart
+  Future<void> bootstrap() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    FlutterError.onError = (details) {
+      debugPrint(details.toString());
+    };
+    final storage = SecureStorageService();
+    await storage.init();
+    runApp(App(storage: storage));
+  }
+  ```
+  > `bootstrap` tidak terima parameter `Widget` — ia yang buat `App` sendiri setelah storage siap. `StorageService.init()` WAJIB dipanggil sebelum `storageServiceProvider` bisa dipakai.
+- [ ] `lib/app.dart` — `ProviderScope` + `MaterialApp.router`:
+  ```dart
+  class App extends StatelessWidget {
+    const App({super.key, required this.storage});
+    final StorageService storage;
+
+    @override
+    Widget build(BuildContext context) {
+      return ProviderScope(
+        overrides: [
+          storageServiceProvider.overrideWithValue(storage),
+        ],
+        child: const _AppRouter(),
+      );
+    }
+  }
+
+  class _AppRouter extends ConsumerStatefulWidget {
+    const _AppRouter({super.key});
+
+    @override
+    ConsumerState<_AppRouter> createState() => _AppRouterState();
+  }
+
+  class _AppRouterState extends ConsumerState<_AppRouter> {
+    @override
+    void initState() {
+      super.initState();
+      // Restore session setelah frame pertama
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(authNotifierProvider.notifier).checkCurrentUser();
+      });
+      // Re-evaluasi GoRouter redirect setiap auth state berubah
+      ref.listenManual(authNotifierProvider, (_, __) => appRouter.refresh());
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return MaterialApp.router(
+        title: 'Flutter Starter',
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: appRouter,
+      );
+    }
+  }
+  ```
+  > `App extends StatelessWidget` — `ProviderScope` harus dibuat SEBELUM `ConsumerWidget` apapun. `_AppRouter` yang `ConsumerStatefulWidget` sudah di dalam `ProviderScope`.
+  >
+  > `ref.listenManual` di `initState` memicu `appRouter.refresh()` setiap `authNotifierProvider` berubah — GoRouter otomatis re-evaluasi `authRedirect`. Tidak butuh `_AuthRouterNotifier` atau package tambahan.
+- [ ] `lib/router/app_router.dart` — `GoRouter`:
+  ```dart
+  final appRouter = GoRouter(
+    initialLocation: '/',
+    redirect: authRedirect,
+    observers: [AppNavigatorObserver()],
+    routes: [
+      ...authRoutes,
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomeScreen(),
+      ),
+    ],
+  );
+  ```
+  > Tidak perlu `refreshListenable` — refresh ditangani oleh `ref.listenManual` di `_AppRouterState`.
+  > `authRedirect` sudah handle `AuthInitial` dan `AuthLoading` dengan return `null` (tidak redirect) — tidak ada flash ke `/login` saat sesi sedang dicek.
 - [ ] `lib/main.dart`:
   ```dart
   void main() async {
     AppConfig.instance = MainConfig();
-    await bootstrap(const App());
+    await bootstrap();
   }
   ```
 - [ ] Verifikasi: jalankan `flutter run --dart-define=ENV=dev` dari `apps/main`
