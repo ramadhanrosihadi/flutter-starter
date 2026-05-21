@@ -1,0 +1,33 @@
+name: flutter_starter_workspace
+publish_to: none
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dev_dependencies:
+  melos: ^7.7.0
+
+workspace:
+  - packages/core
+  - packages/features_shared
+
+melos:
+  packages:
+    - apps/**
+    - packages/**
+  scripts:
+    dev:
+      run: cd apps/main && flutter run --dart-define=ENV=dev
+
+    "dev:variant":
+      run: cd apps/variant && flutter run --dart-define=ENV=dev
+
+    build:android:
+      run: cd apps/main && flutter build apk --dart-define=ENV=prod
+
+    build:ios:
+      run: cd apps/main && flutter build ipa --dart-define=ENV=prod
+
+    test:
+      exec: flutter test
+      concurrency: 4

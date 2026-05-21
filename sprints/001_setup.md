@@ -26,38 +26,38 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   mkdir -p apps packages/core packages/features_shared
   ```
 - [ ] Buat `.gitignore` — exclude `.dart_tool/`, `build/`, `.flutter-plugins`, `.flutter-plugins-dependencies`
-- [ ] Buat root `pubspec.yaml` — Dart workspace config (hanya daftarkan packages dulu, apps ditambahkan di Phase 4 & 5):
+- [ ] Buat root `pubspec.yaml` — Dart workspace config + melos scripts (melos 7.x: tidak ada `melos.yaml` terpisah, semua config ada di sini):
   ```yaml
   name: flutter_starter_workspace
   publish_to: none
   environment:
     sdk: ">=3.5.0 <4.0.0"
+  dev_dependencies:
+    melos: ^7.7.0
   workspace:
     - packages/core
     - packages/features_shared
+  melos:
+    packages:
+      - apps/**
+      - packages/**
+    scripts:
+      dev:
+        run: cd apps/main && flutter run --dart-define=ENV=dev
+      "dev:variant":
+        run: cd apps/variant && flutter run --dart-define=ENV=dev
+      build:android:
+        run: cd apps/main && flutter build apk --dart-define=ENV=prod
+      build:ios:
+        run: cd apps/main && flutter build ipa --dart-define=ENV=prod
+      test:
+        exec: flutter test
+        concurrency: 4
   ```
-- [ ] Buat `melos.yaml` — workspace scripts:
-  ```yaml
-  name: flutter_starter
-  packages:
-    - apps/**
-    - packages/**
-  scripts:
-    dev:
-      run: cd apps/main && flutter run --dart-define=ENV=dev
-    dev:variant:
-      run: cd apps/variant && flutter run --dart-define=ENV=dev
-    build:android:
-      run: cd apps/main && flutter build apk --dart-define=ENV=prod
-    build:ios:
-      run: cd apps/main && flutter build ipa --dart-define=ENV=prod
-    test:
-      exec: flutter test
-      concurrency: 4
-  ```
-- [ ] Smoke test — verifikasi file terbuat: `ls pubspec.yaml melos.yaml .gitignore` tidak error
+  > **Catatan melos 7.x:** Tidak perlu membuat `melos.yaml` terpisah — melos 7.0.0 menghapus `melos.yaml` sepenuhnya. Workspace root dideteksi dari `devDependencies` yang mengandung `melos`.
+- [ ] Smoke test — verifikasi file terbuat: `ls pubspec.yaml .gitignore` tidak error
 
-**Selesai jika:** ketiga file root terbuat tanpa error.
+**Selesai jika:** kedua file root terbuat tanpa error.
 
 ---
 
