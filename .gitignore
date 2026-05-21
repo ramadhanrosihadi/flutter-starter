@@ -28,7 +28,9 @@ build/
 
 # IDEs
 .idea/
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
 *.iml
 
 # Misc

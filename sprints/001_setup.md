@@ -245,7 +245,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   }
   ```
   > `AppConfig` mendeklarasikan getter — implementasi HARUS berupa getter, bukan `final` field atau abstract field.
-- [ ] `lib/home/home_screen.dart` — placeholder home screen:
+- [x] `lib/home/home_screen.dart` — placeholder home screen:
   ```dart
   class HomeScreen extends StatelessWidget {
     const HomeScreen({super.key});
@@ -347,6 +347,39 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   void main() async {
     AppConfig.instance = MainConfig();
     await bootstrap();
+  }
+  ```
+- [x] `.vscode/launch.json` — konfigurasi run/debug untuk `apps/main`
+  dengan environment `dev`, `staging`, dan `prod`:
+  ```json
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "main dev",
+        "request": "launch",
+        "type": "dart",
+        "cwd": "apps/main",
+        "program": "lib/main.dart",
+        "toolArgs": ["--dart-define=ENV=dev"]
+      },
+      {
+        "name": "main staging",
+        "request": "launch",
+        "type": "dart",
+        "cwd": "apps/main",
+        "program": "lib/main.dart",
+        "toolArgs": ["--dart-define=ENV=staging"]
+      },
+      {
+        "name": "main prod",
+        "request": "launch",
+        "type": "dart",
+        "cwd": "apps/main",
+        "program": "lib/main.dart",
+        "toolArgs": ["--dart-define=ENV=prod"]
+      }
+    ]
   }
   ```
 - [x] Verifikasi: jalankan `flutter run --dart-define=ENV=dev` dari `apps/main`
