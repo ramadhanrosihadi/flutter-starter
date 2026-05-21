@@ -189,15 +189,15 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 
 ## Phase 4 — `apps/main/`
 
-- [ ] Buat Flutter project:
+- [x] Buat Flutter project:
   ```bash
   flutter create --no-pub --org id.rmq --platforms android,ios,web --project-name app_main apps/main
   ```
   > `--no-pub` mencegah `pub get` otomatis — workspace belum valid sampai `apps/main` ditambahkan ke root `pubspec.yaml` dan punya `resolution: workspace`.
-- [ ] Hapus boilerplate: `lib/main.dart` dan `test/widget_test.dart`
-- [ ] Update `apps/main/pubspec.yaml`:
+- [x] Hapus boilerplate: `lib/main.dart` dan `test/widget_test.dart`
+- [x] Update `apps/main/pubspec.yaml`:
   - `name: app_main`, `resolution: workspace`
-  - deps: `core`, `features_shared`, `flutter_localizations`, `intl: any`
+  - deps: `core`, `features_shared`, `flutter_localizations`, `intl: any`, `flutter_riverpod`, `go_router` (direct deps karena diimport langsung)
   ```yaml
   dependencies:
     flutter:
@@ -207,28 +207,30 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
     intl: any
     core:
     features_shared:
+    flutter_riverpod: ^3.3.1
+    go_router: ^17.2.3
   ```
-  > `flutter_localizations` dan `intl: any` diperlukan secara eksplisit agar `AppLocalizations.localizationsDelegates` bisa dipakai di `MaterialApp.router`.
-- [ ] Tambahkan `apps/main` ke workspace di root `pubspec.yaml`:
+  > `flutter_riverpod` dan `go_router` harus jadi direct dep karena diimport langsung di `app.dart` dan `app_router.dart`.
+- [x] Tambahkan `apps/main` ke workspace di root `pubspec.yaml`:
   ```yaml
   workspace:
     - packages/core
     - packages/features_shared
     - apps/main
   ```
-- [ ] Jalankan `dart pub get` dari root — resolve workspace termasuk apps/main:
+- [x] Jalankan `dart pub get` dari root — resolve workspace termasuk apps/main:
   ```bash
   dart pub get
   ```
-- [ ] Konfigurasi platform:
+- [x] Konfigurasi platform:
   - Android (`android/app/build.gradle.kts`):
     - `applicationId = "id.rmq.main"`
     - `minSdk = 24` (default Flutter 3.41.6, sudah memenuhi syarat `flutter_secure_storage`)
     - `targetSdk = 36` (default Flutter 3.41.6, sesuai Google Play requirement)
     - `compileSdk = 36` (default Flutter 3.41.6)
-  - iOS: `PRODUCT_BUNDLE_IDENTIFIER = id.rmq.main` di `ios/Runner/Info.plist`
+  - iOS: `PRODUCT_BUNDLE_IDENTIFIER = id.rmq.main` di `ios/Runner.xcodeproj/project.pbxproj`
   - Web: update `<title>` di `web/index.html`
-- [ ] `lib/config/main_config.dart` — `MainConfig extends AppConfig`:
+- [x] `lib/config/main_config.dart` — `MainConfig extends AppConfig`:
   ```dart
   class MainConfig extends AppConfig {
     @override
@@ -258,7 +260,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   }
   ```
   > Placeholder agar router bisa compile. Akan dikembangkan di sprint berikutnya.
-- [ ] `lib/bootstrap.dart` — async init tanpa parameter:
+- [x] `lib/bootstrap.dart` — async init tanpa parameter:
   ```dart
   Future<void> bootstrap() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -271,7 +273,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   }
   ```
   > `bootstrap` tidak terima parameter `Widget` — ia yang buat `App` sendiri setelah storage siap. `StorageService.init()` WAJIB dipanggil sebelum `storageServiceProvider` bisa dipakai.
-- [ ] `lib/app.dart` — `ProviderScope` + `MaterialApp.router`:
+- [x] `lib/app.dart` — `ProviderScope` + `MaterialApp.router`:
   ```dart
   class App extends StatelessWidget {
     const App({super.key, required this.storage});
@@ -323,7 +325,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   > `App extends StatelessWidget` — `ProviderScope` harus dibuat SEBELUM `ConsumerWidget` apapun. `_AppRouter` yang `ConsumerStatefulWidget` sudah di dalam `ProviderScope`.
   >
   > `ref.listenManual` di `initState` memicu `appRouter.refresh()` setiap `authNotifierProvider` berubah — GoRouter otomatis re-evaluasi `authRedirect`. Tidak butuh `_AuthRouterNotifier` atau package tambahan.
-- [ ] `lib/router/app_router.dart` — `GoRouter`:
+- [x] `lib/router/app_router.dart` — `GoRouter`:
   ```dart
   final appRouter = GoRouter(
     initialLocation: '/',
@@ -340,14 +342,14 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
   ```
   > Tidak perlu `refreshListenable` — refresh ditangani oleh `ref.listenManual` di `_AppRouterState`.
   > `authRedirect` sudah handle `AuthInitial` dan `AuthLoading` dengan return `null` (tidak redirect) — tidak ada flash ke `/login` saat sesi sedang dicek.
-- [ ] `lib/main.dart`:
+- [x] `lib/main.dart`:
   ```dart
   void main() async {
     AppConfig.instance = MainConfig();
     await bootstrap();
   }
   ```
-- [ ] Verifikasi: jalankan `flutter run --dart-define=ENV=dev` dari `apps/main`
+- [x] Verifikasi: jalankan `flutter run --dart-define=ENV=dev` dari `apps/main`
 
 **Selesai jika:** `apps/main` tampil di emulator/device dengan home screen tanpa error.
 
