@@ -23,7 +23,7 @@ flutter-starter/
 ├── pubspec.yaml                         ← root workspace: mendaftarkan semua member package ke Dart pub
 ├── ARCHITECTURE.md                      ← dokumentasi arsitektur, keputusan desain, dan aturan struktural
 │
-├── sprint/                              ← rencana dan catatan eksekusi per sprint
+├── sprints/                              ← rencana dan catatan eksekusi per sprint
 │   └── 001_setup.md                    ← Sprint 001: setup monorepo dari root hingga kedua flavor app
 │
 ├── packages/                            ← shared libraries, bukan Flutter app
