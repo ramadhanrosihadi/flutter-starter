@@ -65,12 +65,16 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 
 - [ ] Buat package:
   ```bash
-  flutter create --template=package packages/core
+  flutter create --no-pub --template=package packages/core
   ```
+  > `--no-pub` mencegah `flutter create` menjalankan `pub get` otomatis — workspace belum valid sampai semua member punya `pubspec.yaml`. `pub get` dijalankan di akhir Phase 2.
 - [ ] Update `packages/core/pubspec.yaml`:
   - `name: core`, `resolution: workspace`
-  - deps: `flutter_riverpod: ^3.3.1`, `dio: ^5.9.2`, `go_router: ^17.2.3`, `shared_preferences: ^2.5.5`, `flutter_secure_storage: ^10.2.0`
+  - deps: `flutter_riverpod: ^3.3.1`, `dio: ^5.9.2`, `go_router: ^17.2.3`, `shared_preferences: ^2.5.5`, `flutter_secure_storage: ^10.2.0`, `intl: any`
+  - flutter SDK deps: `flutter_localizations` (dari `sdk: flutter`)
+  > `intl: any` — biarkan pub resolver memilih versi yang kompatibel dengan `flutter_localizations` dari Flutter SDK. Jangan hardcode versi.
 - [ ] Hapus `lib/core.dart` default, buat ulang sebagai barrel export
+- [ ] Ganti `test/core_test.dart` boilerplate — hapus referensi `Calculator`, ganti dengan test yang valid (misal: `Environment.fromString`)
 - [ ] `src/config/` — `AppConfig` abstract class:
   - field abstract: `String baseUrl`, `Environment environment`
   - static: `static late AppConfig instance`
@@ -85,10 +89,46 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 - [ ] `src/utils/` — helper functions: format tanggal, validasi input, helper umum
 - [ ] `src/widgets/` — `AppButton`, `AppTextField`, `LoadingOverlay`
 - [ ] `src/router/` — `AppRoutes` constants + `AppNavigatorObserver` (AuthGuard tidak di sini — ada di Phase 3)
-- [ ] `src/l10n/` — `.arb` files (`app_id.arb`, `app_en.arb`) + konfigurasi `flutter gen-l10n` di `pubspec.yaml`, output ke `lib/src/l10n/`
+- [ ] `src/l10n/` — buat `.arb` files:
+  - `lib/src/l10n/app_id.arb` (Indonesian, template)
+  - `lib/src/l10n/app_en.arb` (English)
+- [ ] Buat `packages/core/l10n.yaml`:
+  ```yaml
+  arb-dir: lib/src/l10n
+  template-arb-file: app_id.arb
+  output-localization-file: app_localizations.dart
+  output-dir: lib/src/l10n
+  ```
+  > `synthetic-package` tidak perlu dicantumkan — opsi ini deprecated di Flutter terbaru dan output sudah otomatis ke `output-dir` sebagai file nyata.
+- [ ] Jalankan dari `packages/core/`:
+  ```bash
+  cd packages/core && flutter gen-l10n
+  ```
 - [ ] Export semua public API ke `lib/core.dart`
+- [ ] Buat stub `packages/features_shared/pubspec.yaml` — minimal agar workspace valid untuk `dart pub get`:
+  ```yaml
+  name: features_shared
+  description: "Features shared package."
+  version: 0.0.1
+  publish_to: none
+  environment:
+    sdk: ">=3.5.0 <4.0.0"
+  resolution: workspace
+  dependencies:
+    flutter:
+      sdk: flutter
+  ```
+  > Stub ini akan ditimpa oleh `flutter create` di Phase 3. Tujuannya hanya agar `dart pub get` bisa jalan sekarang.
+- [ ] Jalankan `dart pub get` dari root — resolve dependency `packages/core`:
+  ```bash
+  dart pub get
+  ```
+- [ ] Smoke test — jalankan test dari `packages/core/`:
+  ```bash
+  cd packages/core && flutter test
+  ```
 
-**Selesai jika:** semua file `src/` terbuat dan `lib/core.dart` barrel export lengkap (analisis dijalankan di akhir Phase 3).
+**Selesai jika:** semua file `src/` terbuat, `lib/core.dart` barrel export lengkap, `dart pub get` sukses, dan `flutter test` pass.
 
 ---
 
@@ -96,8 +136,9 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 
 - [ ] Buat package:
   ```bash
-  flutter create --template=package packages/features_shared
+  flutter create --no-pub --template=package packages/features_shared
   ```
+  > `flutter create` akan menimpa stub `pubspec.yaml` dari Phase 2 — ini yang diinginkan. `--no-pub` tetap dipakai karena deps belum lengkap.
 - [ ] Update `packages/features_shared/pubspec.yaml`:
   - `name: features_shared`, `resolution: workspace`
   - deps: `core`, `flutter_riverpod: ^3.3.1`, `go_router: ^17.2.3`
@@ -119,7 +160,7 @@ Acceptance criteria sprint: kedua app (`apps/main` dan `apps/variant`) bisa di-r
 - [ ] `src/notifications/presentation/` — `NotificationsScreen` (Scaffold kosong), stub Riverpod provider
 
 - [ ] Export semua public API ke `lib/features_shared.dart`
-- [ ] Jalankan `dart pub get` dari root — resolve semua dependency untuk packages/core dan packages/features_shared:
+- [ ] Jalankan `dart pub get` dari root — re-resolve dengan dependency `features_shared` yang sudah lengkap:
   ```bash
   dart pub get
   ```

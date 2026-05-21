@@ -1,0 +1,55 @@
+{
+  "@@locale": "id",
+  "appName": "Flutter Starter",
+  "@appName": {
+    "description": "Nama aplikasi"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "Tombol OK"
+  },
+  "cancel": "Batal",
+  "@cancel": {
+    "description": "Tombol batal"
+  },
+  "save": "Simpan",
+  "@save": {
+    "description": "Tombol simpan"
+  },
+  "delete": "Hapus",
+  "@delete": {
+    "description": "Tombol hapus"
+  },
+  "loading": "Memuat...",
+  "@loading": {
+    "description": "Teks loading"
+  },
+  "errorGeneral": "Terjadi kesalahan. Coba lagi.",
+  "@errorGeneral": {
+    "description": "Pesan error umum"
+  },
+  "errorNetwork": "Tidak ada koneksi internet.",
+  "@errorNetwork": {
+    "description": "Pesan error jaringan"
+  },
+  "login": "Masuk",
+  "@login": {
+    "description": "Tombol masuk"
+  },
+  "logout": "Keluar",
+  "@logout": {
+    "description": "Tombol keluar"
+  },
+  "register": "Daftar",
+  "@register": {
+    "description": "Tombol daftar"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Label email"
+  },
+  "password": "Kata Sandi",
+  "@password": {
+    "description": "Label kata sandi"
+  }
+}

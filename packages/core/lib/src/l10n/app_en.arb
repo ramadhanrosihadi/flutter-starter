@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "appName": "Flutter Starter",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "loading": "Loading...",
+  "errorGeneral": "Something went wrong. Please try again.",
+  "errorNetwork": "No internet connection.",
+  "login": "Login",
+  "logout": "Logout",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password"
+}
