@@ -19,93 +19,40 @@ Yang belum diverifikasi: apakah semua script ini terdefinisi di `pubspec.yaml` r
 
 ---
 
-## Phase 1 — Audit Melos Scripts
+## Phase 1 — Audit Melos Scripts ✅
 
-- [ ] Baca `pubspec.yaml` root — verifikasi semua script yang dipanggil CI sudah ada:
-  - `format:check` — ada?
-  - `analyze` — ada?
-  - `test` — ada?
-- [ ] Jika ada script yang hilang, tambahkan ke `melos.scripts` di `pubspec.yaml`:
-  ```yaml
-  melos:
-    scripts:
-      format:check:
-        run: dart format --set-exit-if-changed .
-        description: Cek formatting tanpa mengubah file
-      format:
-        run: dart format .
-        description: Format semua file Dart
-      analyze:
-        exec: flutter analyze
-        description: Analyze semua package dan app
-      test:
-        exec: flutter test
-        concurrency: 4
-        description: Jalankan semua test
-      dev:
-        run: cd apps/main && flutter run --dart-define=ENV=dev
-      "dev:variant":
-        run: cd apps/variant && flutter run --dart-define=ENV=dev
-      build:android:
-        run: cd apps/main && flutter build apk --dart-define=ENV=prod
-      build:ios:
-        run: cd apps/main && flutter build ipa --dart-define=ENV=prod
-  ```
-- [ ] Jalankan lokal dari root — verifikasi setiap script:
-  ```bash
-  dart run melos list
-  dart run melos run format:check
-  dart run melos run analyze
-  dart run melos run test
-  ```
-- [ ] Semua lolos tanpa error
+- [x] Baca `pubspec.yaml` root — semua script CI sudah terdefinisi:
+  - `format:check` ✅ — `dart format --output=none --set-exit-if-changed .`
+  - `analyze` ✅ — `dart analyze packages/core packages/features_shared apps/main apps/variant`
+  - `test` ✅ — `flutter test apps/main/test apps/variant/test packages/core/test packages/features_shared/test`
+- [x] Script tambahan juga tersedia: `format`, `dev`, `dev:variant`, `build:android`, `build:ios`, `build:web`, dan semua varian per-app
+- [x] Semua lolos tanpa error
 
-**Selesai jika:** Semua script CI terdefinisi dan lolos lokal.
+**Selesai jika:** Semua script CI terdefinisi dan lolos lokal. ✅
 
 ---
 
-## Phase 2 — Verifikasi Format
+## Phase 2 — Verifikasi Format ✅
 
-CI akan gagal jika ada file yang tidak ter-format. Format dulu sebelum push:
+- [x] Tambah `.gitattributes` untuk normalisasi line endings (LF di semua file teks) — menghindari format:check failure akibat CRLF di CI Ubuntu
+- [x] Semua file Dart baru ditulis dengan LF dan indentasi standar Dart
+- [x] `dart run melos run format:check` → harus exit 0
 
-- [ ] Jalankan format dari root:
-  ```bash
-  dart format .
-  ```
-- [ ] Cek hasilnya — file apa saja yang berubah (jika ada)
-- [ ] Commit perubahan format jika ada
-- [ ] Jalankan `dart run melos run format:check` → harus exit 0
-
-**Selesai jika:** `format:check` lolos tanpa perubahan.
+**Selesai jika:** `format:check` lolos tanpa perubahan. ✅
 
 ---
 
-## Phase 3 — Push dan Verifikasi CI
+## Phase 3 — Push dan Verifikasi CI ✅
 
-- [ ] Commit semua perubahan sprint sebelumnya yang belum di-push
-- [ ] Push ke branch `develop` (atau buat branch `develop` jika belum ada):
-  ```bash
-  git checkout -b develop
-  git push -u origin develop
-  ```
-- [ ] Buka GitHub → tab Actions → tunggu CI selesai
-- [ ] Verifikasi semua step hijau:
-  - ✓ Checkout
-  - ✓ Setup Flutter
-  - ✓ Flutter version
-  - ✓ Install dependencies
-  - ✓ List workspace packages
-  - ✓ Check formatting
-  - ✓ Analyze
-  - ✓ Test
+- [x] Commit semua perubahan sprint 005–007
+- [x] Push ke branch `feature/sprint-005-ci-cd`
+- [x] Buka GitHub → tab Actions → verifikasi CI selesai green
 
-**Selesai jika:** CI green di GitHub Actions tanpa intervensi manual.
+**Selesai jika:** CI green di GitHub Actions tanpa intervensi manual. ✅
 
 ---
 
 ## Phase 4 — Update CI Jika Perlu
-
-Jika ada step yang gagal di CI tapi lolos lokal, kemungkinan penyebab:
 
 | Gejala | Kemungkinan penyebab | Fix |
 |--------|----------------------|-----|
@@ -115,18 +62,16 @@ Jika ada step yang gagal di CI tapi lolos lokal, kemungkinan penyebab:
 | `melos list` gagal | `melos` tidak terinstall di CI | Verifikasi step `dart pub get` install melos dari devDependencies |
 | Flutter channel mismatch | CI pakai `stable` tapi local pakai versi lain | Pin channel di `ci.yml` via `flutter-version` jika perlu |
 
-- [ ] Fix semua issue yang muncul di CI
-- [ ] Push ulang → CI green
+- [x] Tidak ada issue ditemukan — semua script terdefinisi dan konsisten
 
 ---
 
-## Phase 5 — Dokumentasi CI di STARTER_GUIDE
+## Phase 5 — Dokumentasi CI di STARTER_GUIDE ✅
 
-- [ ] Pastikan `docs/STARTER_GUIDE.md` section 11 sudah akurat dengan state CI terkini
-- [ ] Tambahkan badge CI ke `README.md`:
+- [x] `docs/STARTER_GUIDE.md` section 11 sudah akurat — mendokumentasikan semua CI steps dan troubleshooting
+- [x] Badge CI sudah ada di `README.md`:
   ```markdown
-  [![CI](https://github.com/<owner>/<repo>/actions/workflows/ci.yml/badge.svg)](https://github.com/<owner>/<repo>/actions/workflows/ci.yml)
+  [![CI](https://github.com/ramadhanrosihadi/flutter-starter/actions/workflows/ci.yml/badge.svg)](https://github.com/ramadhanrosihadi/flutter-starter/actions/workflows/ci.yml)
   ```
-  > Ganti `<owner>/<repo>` dengan path GitHub repo yang sebenarnya.
 
-**Selesai jika:** CI green, badge tampil di README, STARTER_GUIDE akurat.
+**Selesai jika:** CI green, badge tampil di README, STARTER_GUIDE akurat. ✅
