@@ -2,6 +2,12 @@
 
 Project ini menggunakan arsitektur **Monorepo** dengan Melos, dikombinasikan dengan **Feature-First** dan prinsip **Clean Architecture**, dengan dukungan **Multi-Flavor**, **Multi-Environment**, dan **Responsive Layout** untuk mobile dan web.
 
+Dokumen ini menjelaskan keputusan arsitektur dan aturan struktur. Untuk panduan operasional, lihat:
+
+- [`docs/STARTER_GUIDE.md`](docs/STARTER_GUIDE.md) — setup pertama, checklist fork, rename identitas, environment, Firebase, CI
+- [`docs/ADD_FEATURE.md`](docs/ADD_FEATURE.md) — cara menambah fitur baru step-by-step
+- [`docs/ADD_APP_FLAVOR.md`](docs/ADD_APP_FLAVOR.md) — cara menambah app/flavor ketiga
+
 ---
 
 ## Konsep Penting
@@ -62,11 +68,11 @@ flutter-starter/
 |       |       |   |-- data/             # datasource, model, repository impl
 |       |       |   |-- domain/           # entity, repository interface, usecase
 |       |       |   `-- presentation/     # provider, screen, guard, shared routes
-|       |       |-- profile/              # profil pengguna
+|       |       |-- profile/              # profil pengguna (stub — diimplementasi Sprint 006)
 |       |       |   |-- data/
 |       |       |   |-- domain/
 |       |       |   `-- presentation/
-|       |       |-- notifications/        # notifikasi
+|       |       |-- notifications/        # notifikasi (stub — diimplementasi Sprint 006)
 |       |       |   |-- data/
 |       |       |   |-- domain/
 |       |       |   `-- presentation/
@@ -78,7 +84,7 @@ flutter-starter/
     |-- main/                             # app utama / produk primer
     |   |-- lib/
     |   |   |-- config/                   # MainConfig membaca ENV dari --dart-define
-    |   |   |-- dev/                      # dependency override untuk development
+    |   |   |-- dev/                      # Riverpod overrides khusus debug (FakeAuthRepository, dll) — tidak masuk production build
     |   |   |-- features/                 # fitur eksklusif app main
     |   |   |   `-- settings/             # UI settings khusus main
     |   |   |-- home/                     # home screen app main
@@ -256,3 +262,60 @@ main.dart -> AppConfig.instance = ... -> bootstrap() -> runApp(App(...))
 Jika project baru membutuhkan Firebase atau service eksternal lain, inisialisasi tersebut sebaiknya ditambahkan di `bootstrap.dart` masing-masing app atau diekstrak ke helper yang eksplisit.
 
 Saat ini Firebase belum diinisialisasi di kode starter. Jika Firebase dipakai, dokumentasi setup dan file konfigurasi platform perlu ditambahkan bersama perubahan bootstrap.
+
+---
+
+## Testing
+
+Test disimpan di dalam package atau app pemilik fitur:
+
+```text
+packages/core/test/
+packages/features_shared/test/
+apps/main/test/
+apps/variant/test/
+```
+
+Prioritas test per tipe logic:
+
+| Tipe | Yang ditest |
+|------|-------------|
+| Entity / model | parsing, equality, required field |
+| Repository | success path, error mapping, empty result |
+| Notifier / provider | loading → data → error state transitions |
+| Usecase | memanggil repository yang benar dengan parameter yang benar |
+| Screen | smoke test render, state utama (loading, data, error) |
+| Route guard | redirect saat authenticated dan unauthenticated |
+
+Jalankan semua test dari root:
+
+```bash
+dart run melos run test
+```
+
+Atau per app/package:
+
+```bash
+flutter test apps/main/test
+flutter test packages/features_shared/test
+```
+
+---
+
+## CI/CD
+
+Pipeline GitHub Actions ada di `.github/workflows/ci.yml`. CI berjalan otomatis pada push dan pull request ke branch `main` dan `develop`.
+
+Langkah yang dijalankan CI secara berurutan:
+
+```bash
+dart pub get
+dart run melos list
+dart run melos run format:check
+dart run melos run analyze
+dart run melos run test
+```
+
+Jika CI gagal lokal, jalankan urutan yang sama dari root repo. Format failure diselesaikan dengan `dart run melos run format` lalu commit hasilnya.
+
+Script Melos yang dipanggil CI harus selalu terdefinisi di `pubspec.yaml` root di bawah `melos.scripts`.

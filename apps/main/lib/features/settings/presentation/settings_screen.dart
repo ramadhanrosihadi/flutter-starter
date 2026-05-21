@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:features_shared/features_shared.dart';
+import 'package:core/core.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final themeAsync = ref.watch(themeNotifierProvider);
     final localeAsync = ref.watch(localeNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(title: Text(l10n.settings)),
       body: ListView(
         children: [
-          const _SectionHeader('Appearance'),
+          _SectionHeader(l10n.appearance),
           themeAsync.when(
             data: (mode) => _ThemeTile(
               current: mode,
@@ -26,7 +28,7 @@ class SettingsScreen extends ConsumerWidget {
             error: (_, __) => const SizedBox.shrink(),
           ),
           const Divider(),
-          const _SectionHeader('Language'),
+          _SectionHeader(l10n.language),
           localeAsync.when(
             data: (locale) => _LanguageTile(
               current: locale,
@@ -64,24 +66,25 @@ class _ThemeTile extends StatelessWidget {
   final void Function(ThemeMode) onChanged;
 
   @override
-  Widget build(BuildContext context) => RadioGroup<ThemeMode>(
-        groupValue: current,
-        onChanged: (val) {
-          if (val != null) onChanged(val);
-        },
-        child: Column(
-          children: ThemeMode.values
-              .map((mode) => RadioListTile<ThemeMode>(
-                    title: Text(switch (mode) {
-                      ThemeMode.system => 'System default',
-                      ThemeMode.light => 'Light',
-                      ThemeMode.dark => 'Dark',
-                    }),
-                    value: mode,
-                  ))
-              .toList(),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return RadioGroup<ThemeMode>(
+      groupValue: current,
+      onChanged: (val) { if (val != null) onChanged(val); },
+      child: Column(
+        children: ThemeMode.values
+            .map((mode) => RadioListTile<ThemeMode>(
+                  title: Text(switch (mode) {
+                    ThemeMode.system => l10n.themeSystem,
+                    ThemeMode.light => l10n.themeLight,
+                    ThemeMode.dark => l10n.themeDark,
+                  }),
+                  value: mode,
+                ))
+            .toList(),
+      ),
+    );
+  }
 }
 
 class _LanguageTile extends StatelessWidget {
@@ -90,37 +93,41 @@ class _LanguageTile extends StatelessWidget {
   final void Function(Locale) onChanged;
 
   @override
-  Widget build(BuildContext context) => RadioGroup<String>(
-        groupValue: current.languageCode,
-        onChanged: (val) {
-          if (val != null) onChanged(Locale(val));
-        },
-        child: const Column(
-          children: [
-            RadioListTile<String>(
-              title: Text('Indonesia'),
-              value: 'id',
-            ),
-            RadioListTile<String>(
-              title: Text('English'),
-              value: 'en',
-            ),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return RadioGroup<String>(
+      groupValue: current.languageCode,
+      onChanged: (val) { if (val != null) onChanged(Locale(val)); },
+      child: Column(
+        children: [
+          RadioListTile<String>(
+            title: Text(l10n.langIndonesia),
+            value: 'id',
+          ),
+          RadioListTile<String>(
+            title: Text(l10n.langEnglish),
+            value: 'en',
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _AboutTile extends StatelessWidget {
   const _AboutTile();
 
   @override
-  Widget build(BuildContext context) => FutureBuilder<PackageInfo>(
-        future: PackageInfo.fromPlatform(),
-        builder: (context, snap) => ListTile(
-          title: const Text('Version'),
-          trailing: Text(snap.hasData
-              ? '${snap.data!.version}+${snap.data!.buildNumber}'
-              : '—'),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return FutureBuilder<PackageInfo>(
+      future: PackageInfo.fromPlatform(),
+      builder: (context, snap) => ListTile(
+        title: Text(l10n.version),
+        trailing: Text(snap.hasData
+            ? '${snap.data!.version}+${snap.data!.buildNumber}'
+            : '—'),
+      ),
+    );
+  }
 }

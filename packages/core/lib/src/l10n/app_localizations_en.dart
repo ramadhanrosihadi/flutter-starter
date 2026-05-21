@@ -12,6 +12,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'Flutter Starter';
 
   @override
+  String get home => 'Home';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get welcome => 'Welcome!';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get themeSystem => 'System default';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeDarkSubtitle => 'Dark display';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get langIndonesia => 'Indonesia';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get langEnglishSubtitle => 'Use English language';
+
+  @override
+  String get version => 'Version';
+
+  @override
+  String get appVersion => 'App Version';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
   String get ok => 'OK';
 
   @override
@@ -31,6 +76,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorNetwork => 'No internet connection.';
+
+  @override
+  String get errorInvalidEmail => 'Enter a valid email';
+
+  @override
+  String get errorPasswordTooShort => 'Min 6 characters';
 
   @override
   String get login => 'Login';

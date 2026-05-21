@@ -7,9 +7,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Variant'),
+        title: Text(l10n.home),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(child: Text('Welcome to Variant!')),
+      body: Center(child: Text(l10n.welcome)),
     );
   }
 }

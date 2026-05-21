@@ -4,6 +4,66 @@
   "@appName": {
     "description": "Nama aplikasi"
   },
+  "home": "Beranda",
+  "@home": {
+    "description": "Label halaman beranda"
+  },
+  "settings": "Pengaturan",
+  "@settings": {
+    "description": "Label halaman pengaturan"
+  },
+  "welcome": "Selamat datang!",
+  "@welcome": {
+    "description": "Teks sambutan di halaman beranda"
+  },
+  "appearance": "Tampilan",
+  "@appearance": {
+    "description": "Judul seksi tampilan di settings"
+  },
+  "themeSystem": "Ikuti sistem",
+  "@themeSystem": {
+    "description": "Pilihan tema: ikuti sistem"
+  },
+  "themeLight": "Terang",
+  "@themeLight": {
+    "description": "Pilihan tema: terang"
+  },
+  "themeDark": "Gelap",
+  "@themeDark": {
+    "description": "Pilihan tema: gelap"
+  },
+  "themeDarkSubtitle": "Tampilan gelap",
+  "@themeDarkSubtitle": {
+    "description": "Subjudul mode gelap di variant settings"
+  },
+  "language": "Bahasa",
+  "@language": {
+    "description": "Judul seksi bahasa di settings"
+  },
+  "langIndonesia": "Indonesia",
+  "@langIndonesia": {
+    "description": "Pilihan bahasa: Indonesia"
+  },
+  "langEnglish": "English",
+  "@langEnglish": {
+    "description": "Pilihan bahasa: Inggris"
+  },
+  "langEnglishSubtitle": "Use English language",
+  "@langEnglishSubtitle": {
+    "description": "Subjudul pilihan bahasa Inggris di variant settings"
+  },
+  "version": "Versi",
+  "@version": {
+    "description": "Label versi di settings"
+  },
+  "appVersion": "Versi Aplikasi",
+  "@appVersion": {
+    "description": "Label versi aplikasi di variant settings"
+  },
+  "signIn": "Masuk",
+  "@signIn": {
+    "description": "Judul halaman login"
+  },
   "ok": "OK",
   "@ok": {
     "description": "Tombol OK"
@@ -31,6 +91,14 @@
   "errorNetwork": "Tidak ada koneksi internet.",
   "@errorNetwork": {
     "description": "Pesan error jaringan"
+  },
+  "errorInvalidEmail": "Masukkan email yang valid",
+  "@errorInvalidEmail": {
+    "description": "Validasi email tidak valid"
+  },
+  "errorPasswordTooShort": "Minimal 6 karakter",
+  "@errorPasswordTooShort": {
+    "description": "Validasi password terlalu pendek"
   },
   "login": "Masuk",
   "@login": {

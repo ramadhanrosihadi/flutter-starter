@@ -95,7 +95,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('id'),
+    Locale('id')
   ];
 
   /// Nama aplikasi
@@ -103,6 +103,96 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Flutter Starter'**
   String get appName;
+
+  /// Label halaman beranda
+  ///
+  /// In id, this message translates to:
+  /// **'Beranda'**
+  String get home;
+
+  /// Label halaman pengaturan
+  ///
+  /// In id, this message translates to:
+  /// **'Pengaturan'**
+  String get settings;
+
+  /// Teks sambutan di halaman beranda
+  ///
+  /// In id, this message translates to:
+  /// **'Selamat datang!'**
+  String get welcome;
+
+  /// Judul seksi tampilan di settings
+  ///
+  /// In id, this message translates to:
+  /// **'Tampilan'**
+  String get appearance;
+
+  /// Pilihan tema: ikuti sistem
+  ///
+  /// In id, this message translates to:
+  /// **'Ikuti sistem'**
+  String get themeSystem;
+
+  /// Pilihan tema: terang
+  ///
+  /// In id, this message translates to:
+  /// **'Terang'**
+  String get themeLight;
+
+  /// Pilihan tema: gelap
+  ///
+  /// In id, this message translates to:
+  /// **'Gelap'**
+  String get themeDark;
+
+  /// Subjudul mode gelap di variant settings
+  ///
+  /// In id, this message translates to:
+  /// **'Tampilan gelap'**
+  String get themeDarkSubtitle;
+
+  /// Judul seksi bahasa di settings
+  ///
+  /// In id, this message translates to:
+  /// **'Bahasa'**
+  String get language;
+
+  /// Pilihan bahasa: Indonesia
+  ///
+  /// In id, this message translates to:
+  /// **'Indonesia'**
+  String get langIndonesia;
+
+  /// Pilihan bahasa: Inggris
+  ///
+  /// In id, this message translates to:
+  /// **'English'**
+  String get langEnglish;
+
+  /// Subjudul pilihan bahasa Inggris di variant settings
+  ///
+  /// In id, this message translates to:
+  /// **'Use English language'**
+  String get langEnglishSubtitle;
+
+  /// Label versi di settings
+  ///
+  /// In id, this message translates to:
+  /// **'Versi'**
+  String get version;
+
+  /// Label versi aplikasi di variant settings
+  ///
+  /// In id, this message translates to:
+  /// **'Versi Aplikasi'**
+  String get appVersion;
+
+  /// Judul halaman login
+  ///
+  /// In id, this message translates to:
+  /// **'Masuk'**
+  String get signIn;
 
   /// Tombol OK
   ///
@@ -145,6 +235,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tidak ada koneksi internet.'**
   String get errorNetwork;
+
+  /// Validasi email tidak valid
+  ///
+  /// In id, this message translates to:
+  /// **'Masukkan email yang valid'**
+  String get errorInvalidEmail;
+
+  /// Validasi password terlalu pendek
+  ///
+  /// In id, this message translates to:
+  /// **'Minimal 6 karakter'**
+  String get errorPasswordTooShort;
 
   /// Tombol masuk
   ///
@@ -204,9 +306,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

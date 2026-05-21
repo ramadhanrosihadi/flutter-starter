@@ -1,8 +1,10 @@
 import 'package:core/core.dart';
 import 'package:features_shared/features_shared.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'dev/fake_auth_repository.dart';
 import 'router/app_router.dart';
 
 class App extends StatelessWidget {
@@ -15,6 +17,8 @@ class App extends StatelessWidget {
     return ProviderScope(
       overrides: [
         storageServiceProvider.overrideWithValue(storage),
+        if (kDebugMode)
+          authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
       ],
       child: const _AppRouter(),
     );
