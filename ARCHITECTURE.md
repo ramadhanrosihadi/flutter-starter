@@ -37,7 +37,14 @@ flutter-starter/
 |
 |-- sprints/                             # rencana dan catatan eksekusi per sprint
 |   |-- 001_setup.md                     # setup monorepo, core, shared features, dan app
-|   `-- 002_feature_settings.md          # fitur settings lintas flavor
+|   |-- 002_feature_settings.md          # fitur settings lintas flavor
+|   |-- 003_l10n.md                      # localization end-to-end
+|   |-- 004_testing.md                   # unit & widget tests
+|   |-- 005_ci_cd.md                     # CI/CD verification
+|   |-- 006_profile_feature.md           # fitur profile (clean architecture)
+|   |-- 007_release_prep.md              # release preparation
+|   |-- 008_home_screen.md               # home screen apps/main
+|   `-- 009_ui_gallery.md                # UI component gallery
 |
 |-- packages/                            # shared libraries, bukan Flutter app
 |   |
@@ -87,7 +94,11 @@ flutter-starter/
     |   |   |-- dev/                      # Riverpod overrides khusus debug (FakeAuthRepository, dll) — tidak masuk production build
     |   |   |-- features/                 # fitur eksklusif app main
     |   |   |   |-- home/                 # home screen (data/domain/presentation)
-    |   |   |   `-- settings/             # UI settings khusus main
+    |   |   |   |-- settings/             # UI settings khusus main
+    |   |   |   `-- ui_gallery/           # UI component gallery (referensi dev — hapus sebelum prod)
+    |   |   |       |-- data/             # dummy_data.dart
+    |   |   |       |-- widgets/          # section_header, demo_card, gallery_menu_card
+    |   |   |       `-- screens/          # ui_gallery_home_screen + 8 layar demo
     |   |   |-- router/
     |   |   |   `-- app_router.dart       # GoRouter final untuk app main
     |   |   |-- app.dart                  # ProviderScope + MaterialApp.router

@@ -18,6 +18,7 @@ File sprint bisa dijadikan referensi untuk memahami keputusan desain dan urutan 
 | 006 | [006_profile_feature.md](006_profile_feature.md) | Fitur Profile | Profile screen tampil di kedua app, data dari sesi auth |
 | 007 | [007_release_prep.md](007_release_prep.md) | Release preparation | Identitas app terganti, signing config siap, README diupdate |
 | 008 | [008_home_screen.md](008_home_screen.md) | Home screen apps/main | Header user + grid 15 menu tampil, tap menu memunculkan SnackBar |
+| 009 | [009_ui_gallery.md](009_ui_gallery.md) | UI Component Gallery | Menu "UI Gallery" di Home membuka 8 layar demo interaktif tanpa error |
 
 ---
 
@@ -46,6 +47,9 @@ Persiapan sebelum publish — ganti identitas app (`applicationId`, `namespace`)
 
 ### Sprint 008 — Home Screen (apps/main)
 Mengganti `HomeScreen` stub di `apps/main` dengan tampilan nyata: header informasi pengguna (data fake/konstanta) dan grid 15 menu navigasi dengan ikon dan warna beragam. Tap menu menampilkan SnackBar stub.
+
+### Sprint 009 — UI Component Gallery
+Menambahkan UI Component Gallery ke `apps/main` — mini showcase interaktif berisi 8 layar demo: Dialog & Popup, Form & Input, Cards & Lists, Navigation & Tab, Loading & Empty State, Animation, Feedback & Input, dan Utilities. Dibangun tanpa dependency baru; shimmer diimplementasi manual via `ShaderMask`. Seluruh state UI lokal menggunakan `StatefulWidget` + `setState`.
 
 ---
 
