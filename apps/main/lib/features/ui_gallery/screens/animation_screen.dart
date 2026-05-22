@@ -8,23 +8,24 @@ class AnimationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Animation Showcase')),
+      appBar: AppBar(title: Text(l10n.galleryAnimScreenTitle)),
       body: ListView(
-        children: const [
-          SectionHeader(title: '1. Hero Animation', subtitle: 'Tap kotak untuk navigasi dengan Hero transition'),
-          _HeroSection(),
-          SectionHeader(title: '2. Animated Container', subtitle: 'Toggle ukuran, warna, border radius'),
-          _AnimatedContainerSection(),
-          SectionHeader(title: '3. Page Transition Custom', subtitle: 'Fade, slide, scale'),
-          _PageTransitionSection(),
-          SectionHeader(title: '4. Animated List', subtitle: 'Tambah dan hapus item dengan animasi'),
-          _AnimatedListSection(),
-          SectionHeader(title: '5. Animated Icons', subtitle: 'Toggle animasi ikon Flutter bawaan'),
-          _AnimatedIconSection(),
-          SectionHeader(title: '6. Staggered Animation', subtitle: 'Card muncul satu per satu dengan delay'),
-          _StaggeredSection(),
-          SizedBox(height: 32),
+        children: [
+          SectionHeader(title: l10n.gallerySectionHeroAnim, subtitle: l10n.gallerySectionHeroAnimDesc),
+          const _HeroSection(),
+          SectionHeader(title: l10n.gallerySectionAnimContainer, subtitle: l10n.gallerySectionAnimContainerDesc),
+          const _AnimatedContainerSection(),
+          SectionHeader(title: l10n.gallerySectionPageTransition, subtitle: l10n.gallerySectionPageTransitionDesc),
+          const _PageTransitionSection(),
+          SectionHeader(title: l10n.gallerySectionAnimatedList, subtitle: l10n.gallerySectionAnimatedListDesc),
+          const _AnimatedListSection(),
+          SectionHeader(title: l10n.gallerySectionAnimatedIcons, subtitle: l10n.gallerySectionAnimatedIconsDesc),
+          const _AnimatedIconSection(),
+          SectionHeader(title: l10n.gallerySectionStaggered, subtitle: l10n.gallerySectionStaggeredDesc),
+          const _StaggeredSection(),
+          const SizedBox(height: 32),
         ],
       ),
     );

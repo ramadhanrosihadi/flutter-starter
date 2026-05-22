@@ -225,12 +225,13 @@ class _DialogPopupScreenState extends State<DialogPopupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Dialog & Popup')),
+      appBar: AppBar(title: Text(l10n.galleryDialogScreenTitle)),
       body: ListView(
         children: [
-          const SectionHeader(
-              title: 'Alert Dialogs', subtitle: 'Berbagai jenis alert dialog'),
+          SectionHeader(
+              title: l10n.gallerySectionAlertDialogs, subtitle: l10n.gallerySectionAlertDialogsDesc),
           DemoCard(
             title: '1. Alert Dialog Sederhana',
             subtitle: 'Konfirmasi dengan dua tombol',
@@ -247,8 +248,8 @@ class _DialogPopupScreenState extends State<DialogPopupScreen> {
             child: _DemoBtn('LIHAT DIALOG', _showDestructiveAlert,
                 color: AppColors.error),
           ),
-          const SectionHeader(
-              title: 'Bottom Sheets', subtitle: 'Modal sheet dari bawah layar'),
+          SectionHeader(
+              title: l10n.gallerySectionBottomSheets, subtitle: l10n.gallerySectionBottomSheetsDesc),
           DemoCard(
             title: '4. Bottom Sheet Standard',
             subtitle: 'Daftar opsi dengan drag handle',
@@ -259,8 +260,8 @@ class _DialogPopupScreenState extends State<DialogPopupScreen> {
             subtitle: 'Bisa di-drag 30%–90% layar',
             child: _DemoBtn('LIHAT SHEET', _showDraggableSheet),
           ),
-          const SectionHeader(
-              title: 'Custom Dialogs', subtitle: 'Dialog animasi dan loading'),
+          SectionHeader(
+              title: l10n.gallerySectionCustomDialogs, subtitle: l10n.gallerySectionCustomDialogsDesc),
           DemoCard(
             title: '6. Custom Dialog + Countdown',
             subtitle: 'Dialog sukses, auto-close 3 detik',
@@ -271,8 +272,8 @@ class _DialogPopupScreenState extends State<DialogPopupScreen> {
             subtitle: 'Tidak bisa dismiss, auto-close lalu tampil sukses',
             child: _DemoBtn('LIHAT DIALOG', _showLoadingDialog),
           ),
-          const SectionHeader(
-              title: 'SnackBar Variants', subtitle: 'Info, sukses, warning, error'),
+          SectionHeader(
+              title: l10n.gallerySectionSnackbarVariants, subtitle: l10n.gallerySectionSnackbarVariantsDesc),
           DemoCard(
             title: '8. SnackBar Variants',
             subtitle: 'Tap salah satu tombol di bawah',

@@ -9,13 +9,14 @@ class LoadingEmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Loading & Empty States'),
-          bottom: const TabBar(
-            tabs: [Tab(text: 'Loading'), Tab(text: 'Empty State')],
+          title: Text(l10n.galleryLoadingScreenTitle),
+          bottom: TabBar(
+            tabs: [Tab(text: l10n.galleryTabLoading), Tab(text: l10n.galleryTabEmptyState)],
           ),
         ),
         body: const TabBarView(
@@ -94,12 +95,13 @@ class _LoadingTabState extends State<_LoadingTab>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       children: [
         // 1. Shimmer
-        const SectionHeader(
-            title: '1. Shimmer Loading',
-            subtitle: 'Manual tanpa library, ShaderMask + LinearGradient'),
+        SectionHeader(
+            title: l10n.gallerySectionShimmer,
+            subtitle: l10n.gallerySectionShimmerDesc),
         DemoCard(
           title: 'Shimmer Cards',
           subtitle: 'Toggle antara loading dan konten asli',
@@ -126,18 +128,18 @@ class _LoadingTabState extends State<_LoadingTab>
         ),
 
         // 2. Skeleton
-        const SectionHeader(
-            title: '2. Skeleton Screen',
-            subtitle: 'Layout placeholder sebelum konten siap'),
+        SectionHeader(
+            title: l10n.gallerySectionSkeleton,
+            subtitle: l10n.gallerySectionSkeletonDesc),
         DemoCard(
           title: 'Skeleton Avatar + Teks',
           child: _SkeletonDemo(controller: _shimmerCtrl),
         ),
 
         // 3. Linear Progress
-        const SectionHeader(
-            title: '3. Linear Progress Indicator',
-            subtitle: 'Determinate, 0–100% dalam 3 detik'),
+        SectionHeader(
+            title: l10n.gallerySectionLinearProgress,
+            subtitle: l10n.gallerySectionLinearProgressDesc),
         DemoCard(
           title: 'Progress Bar',
           child: Column(
@@ -172,9 +174,9 @@ class _LoadingTabState extends State<_LoadingTab>
         ),
 
         // 4. Circular Progress
-        const SectionHeader(
-            title: '4. Circular Progress',
-            subtitle: 'Determinate dengan % di tengah'),
+        SectionHeader(
+            title: l10n.gallerySectionCircularProgress,
+            subtitle: l10n.gallerySectionCircularProgressDesc),
         DemoCard(
           title: 'Progress Lingkaran',
           child: Row(
@@ -195,9 +197,9 @@ class _LoadingTabState extends State<_LoadingTab>
         ),
 
         // 5. Pull-to-Refresh
-        const SectionHeader(
-            title: '5. Pull-to-Refresh',
-            subtitle: 'Tarik ke bawah untuk refresh list'),
+        SectionHeader(
+            title: l10n.gallerySectionPullToRefresh,
+            subtitle: l10n.gallerySectionPullToRefreshDesc),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           child: Card(
@@ -419,10 +421,11 @@ class _EmptyTabState extends State<_EmptyTab> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListView(
       children: [
         // 6. No Data
-        const SectionHeader(title: '6. Empty State — Tidak Ada Data', subtitle: 'Ilustrasi + CTA'),
+        SectionHeader(title: l10n.gallerySectionEmptyNoData, subtitle: l10n.gallerySectionEmptyNoDataDesc),
         _EmptyStateCard(
           icon: Icons.inbox_outlined,
           iconColor: Colors.blueGrey,
@@ -434,7 +437,7 @@ class _EmptyTabState extends State<_EmptyTab> {
         ),
 
         // 7. No Internet
-        const SectionHeader(title: '7. Empty State — Tidak Ada Koneksi', subtitle: 'Retry dengan loading simulasi'),
+        SectionHeader(title: l10n.gallerySectionEmptyNoInternet, subtitle: l10n.gallerySectionEmptyNoInternetDesc),
         DemoCard(
           title: 'No Internet',
           child: _showNormal
@@ -469,7 +472,7 @@ class _EmptyTabState extends State<_EmptyTab> {
         ),
 
         // 8. Error
-        const SectionHeader(title: '8. Empty State — Error', subtitle: 'Something went wrong'),
+        SectionHeader(title: l10n.gallerySectionEmptyError, subtitle: l10n.gallerySectionEmptyErrorDesc),
         _EmptyStateCard(
           icon: Icons.error_outline,
           iconColor: AppColors.error,

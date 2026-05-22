@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:core/core.dart';
 
 import '../widgets/gallery_menu_card.dart';
 import 'dialog_popup_screen.dart';
@@ -13,56 +14,56 @@ import 'utilities_screen.dart';
 class UiGalleryHomeScreen extends StatelessWidget {
   const UiGalleryHomeScreen({super.key});
 
-  static final _menus = [
-    (
-      title: 'Dialog & Popup',
-      subtitle: 'Alert, bottom sheet, custom dialog',
-      icon: Icons.chat_bubble_outline,
-      color: Colors.indigo,
-    ),
-    (
-      title: 'Form & Input',
-      subtitle: 'TextField, dropdown, date picker',
-      icon: Icons.edit_note_outlined,
-      color: Colors.teal,
-    ),
-    (
-      title: 'Cards & List',
-      subtitle: 'Card variants dan dismissible list',
-      icon: Icons.dashboard_outlined,
-      color: Colors.purple,
-    ),
-    (
-      title: 'Navigation',
-      subtitle: 'TabBar, stepper, drawer demo',
-      icon: Icons.explore_outlined,
-      color: Colors.amber,
-    ),
-    (
-      title: 'Loading & Empty',
-      subtitle: 'Shimmer, progress, empty states',
-      icon: Icons.hourglass_empty_outlined,
-      color: Colors.blueGrey,
-    ),
-    (
-      title: 'Animation',
-      subtitle: 'Hero, animated container, stagger',
-      icon: Icons.auto_awesome_outlined,
-      color: Colors.pink,
-    ),
-    (
-      title: 'Feedback',
-      subtitle: 'Rating, like, poll, OTP input',
-      icon: Icons.thumb_up_alt_outlined,
-      color: Colors.cyan,
-    ),
-    (
-      title: 'Utilities',
-      subtitle: 'Chip, badge, search, clipboard',
-      icon: Icons.build_outlined,
-      color: Colors.brown,
-    ),
-  ];
+  List<_MenuData> _buildMenus(AppLocalizations l10n) => [
+        _MenuData(
+          title: l10n.galleryMenuDialogTitle,
+          subtitle: l10n.galleryMenuDialogSubtitle,
+          icon: Icons.chat_bubble_outline,
+          color: Colors.indigo,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuFormTitle,
+          subtitle: l10n.galleryMenuFormSubtitle,
+          icon: Icons.edit_note_outlined,
+          color: Colors.teal,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuCardsTitle,
+          subtitle: l10n.galleryMenuCardsSubtitle,
+          icon: Icons.dashboard_outlined,
+          color: Colors.purple,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuNavTitle,
+          subtitle: l10n.galleryMenuNavSubtitle,
+          icon: Icons.explore_outlined,
+          color: Colors.amber,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuLoadingTitle,
+          subtitle: l10n.galleryMenuLoadingSubtitle,
+          icon: Icons.hourglass_empty_outlined,
+          color: Colors.blueGrey,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuAnimTitle,
+          subtitle: l10n.galleryMenuAnimSubtitle,
+          icon: Icons.auto_awesome_outlined,
+          color: Colors.pink,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuFeedbackTitle,
+          subtitle: l10n.galleryMenuFeedbackSubtitle,
+          icon: Icons.thumb_up_alt_outlined,
+          color: Colors.cyan,
+        ),
+        _MenuData(
+          title: l10n.galleryMenuUtilitiesTitle,
+          subtitle: l10n.galleryMenuUtilitiesSubtitle,
+          icon: Icons.build_outlined,
+          color: Colors.brown,
+        ),
+      ];
 
   void _navigate(BuildContext context, int index) {
     final screens = [
@@ -83,9 +84,12 @@ class UiGalleryHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final menus = _buildMenus(l10n);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('UI Component Gallery'),
+        title: Text(l10n.galleryTitle),
         centerTitle: true,
       ),
       body: Column(
@@ -108,7 +112,7 @@ class UiGalleryHomeScreen extends StatelessWidget {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    '8 kategori komponen interaktif',
+                    l10n.gallerySubtitle,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color:
                               Theme.of(context).colorScheme.onPrimaryContainer,
@@ -128,9 +132,9 @@ class UiGalleryHomeScreen extends StatelessWidget {
                 crossAxisSpacing: 10,
                 childAspectRatio: 1.1,
               ),
-              itemCount: _menus.length,
+              itemCount: menus.length,
               itemBuilder: (context, index) {
-                final m = _menus[index];
+                final m = menus[index];
                 return GalleryMenuCard(
                   title: m.title,
                   subtitle: m.subtitle,
@@ -145,4 +149,17 @@ class UiGalleryHomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class _MenuData {
+  const _MenuData({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+  });
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
 }

@@ -8,23 +8,24 @@ class FeedbackScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Feedback & Interaksi')),
+      appBar: AppBar(title: Text(l10n.galleryFeedbackScreenTitle)),
       body: ListView(
-        children: const [
-          SectionHeader(title: '1. Star Rating', subtitle: 'Tap atau drag untuk beri rating'),
-          _StarRating(),
-          SectionHeader(title: '2. Like Button', subtitle: 'Animasi pop saat di-tap'),
-          _LikeButton(),
-          SectionHeader(title: '3. Reaction Picker', subtitle: 'Long press untuk emoji reactions'),
-          _ReactionPicker(),
-          SectionHeader(title: '4. Comment Input', subtitle: 'Kirim komentar, masuk ke list'),
-          _CommentSection(),
-          SectionHeader(title: '5. Quick Poll', subtitle: 'Pilih satu opsi, lihat hasil persentase'),
-          _QuickPoll(),
-          SectionHeader(title: '6. OTP / PIN Input', subtitle: 'Coba masukkan 123456'),
-          _OtpInput(),
-          SizedBox(height: 32),
+        children: [
+          SectionHeader(title: l10n.gallerySectionStarRating, subtitle: l10n.gallerySectionStarRatingDesc),
+          const _StarRating(),
+          SectionHeader(title: l10n.gallerySectionLikeButton, subtitle: l10n.gallerySectionLikeButtonDesc),
+          const _LikeButton(),
+          SectionHeader(title: l10n.gallerySectionReactionPicker, subtitle: l10n.gallerySectionReactionPickerDesc),
+          const _ReactionPicker(),
+          SectionHeader(title: l10n.gallerySectionCommentInput, subtitle: l10n.gallerySectionCommentInputDesc),
+          const _CommentSection(),
+          SectionHeader(title: l10n.gallerySectionQuickPoll, subtitle: l10n.gallerySectionQuickPollDesc),
+          const _QuickPoll(),
+          SectionHeader(title: l10n.gallerySectionOtpInput, subtitle: l10n.gallerySectionOtpInputDesc),
+          const _OtpInput(),
+          const SizedBox(height: 32),
         ],
       ),
     );

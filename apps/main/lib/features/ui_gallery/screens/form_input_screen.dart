@@ -148,15 +148,16 @@ class _FormInputScreenState extends State<FormInputScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Form & Input Components')),
+      appBar: AppBar(title: Text(l10n.galleryFormScreenTitle)),
       body: Form(
         key: _formKey,
         child: ListView(
           controller: _scrollCtrl,
           children: [
-            const SectionHeader(
-                title: 'Text Fields', subtitle: 'Berbagai jenis input teks'),
+            SectionHeader(
+                title: l10n.gallerySectionTextFields, subtitle: l10n.gallerySectionTextFieldsDesc),
 
             // 1. TextField biasa
             DemoCard(
@@ -257,8 +258,8 @@ class _FormInputScreenState extends State<FormInputScreen> {
               ),
             ),
 
-            const SectionHeader(
-                title: 'Selectors', subtitle: 'Dropdown, date picker, radio, checkbox'),
+            SectionHeader(
+                title: l10n.gallerySectionSelectors, subtitle: l10n.gallerySectionSelectorsDesc),
 
             // 5. Dropdown
             DemoCard(
@@ -347,8 +348,8 @@ class _FormInputScreenState extends State<FormInputScreen> {
               ),
             ),
 
-            const SectionHeader(
-                title: 'Toggles & Sliders', subtitle: 'Switch dan range input'),
+            SectionHeader(
+                title: l10n.gallerySectionTogglesSliders, subtitle: l10n.gallerySectionTogglesSlidersDesc),
 
             // 9. Toggle Switch
             DemoCard(

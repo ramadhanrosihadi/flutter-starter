@@ -13,15 +13,16 @@ class CardsListScreen extends StatefulWidget {
 class _CardsListScreenState extends State<CardsListScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Cards & List Variants'),
+          title: Text(l10n.galleryCardsScreenTitle),
           bottom: TabBar(
-            tabs: const [
-              Tab(text: 'Cards'),
-              Tab(text: 'Lists'),
+            tabs: [
+              Tab(text: l10n.galleryTabCards),
+              Tab(text: l10n.galleryTabLists),
             ],
           ),
         ),

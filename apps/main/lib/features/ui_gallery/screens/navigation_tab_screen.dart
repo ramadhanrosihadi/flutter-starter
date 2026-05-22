@@ -7,18 +7,19 @@ class NavigationTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Navigation & Tab Patterns'),
-          bottom: const TabBar(
+          title: Text(l10n.galleryNavScreenTitle),
+          bottom: TabBar(
             isScrollable: true,
             tabs: [
-              Tab(icon: Icon(Icons.tab, size: 16), text: 'Tab Bar'),
-              Tab(icon: Icon(Icons.view_quilt, size: 16), text: 'Bottom Nav'),
-              Tab(icon: Icon(Icons.linear_scale, size: 16), text: 'Stepper'),
-              Tab(icon: Icon(Icons.menu, size: 16), text: 'Drawer'),
+              Tab(icon: const Icon(Icons.tab, size: 16), text: l10n.galleryTabTabBar),
+              Tab(icon: const Icon(Icons.view_quilt, size: 16), text: l10n.galleryTabBottomNav),
+              Tab(icon: const Icon(Icons.linear_scale, size: 16), text: l10n.galleryTabStepper),
+              Tab(icon: const Icon(Icons.menu, size: 16), text: l10n.galleryTabDrawer),
             ],
           ),
         ),

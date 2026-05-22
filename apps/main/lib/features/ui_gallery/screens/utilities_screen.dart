@@ -10,25 +10,26 @@ class UtilitiesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: const Text('Utilities & Helpers')),
+      appBar: AppBar(title: Text(l10n.galleryUtilitiesScreenTitle)),
       body: ListView(
-        children: const [
-          SectionHeader(title: '1. Chip Variants', subtitle: 'Input, filter, action, choice chip'),
-          _ChipVariants(),
-          SectionHeader(title: '2. Badge & Notification Dot', subtitle: 'Angka badge +1 / reset'),
-          _BadgeDemo(),
-          SectionHeader(title: '3. Search Bar + Filter', subtitle: 'Filter list real-time saat mengetik'),
-          _SearchBarFilter(),
-          SectionHeader(title: '4. Tooltip', subtitle: 'Long press untuk lihat tooltip custom'),
-          _TooltipShowcase(),
-          SectionHeader(title: '5. Copy to Clipboard', subtitle: 'Tap salin untuk copy token/kode'),
-          _ClipboardCopy(),
-          SectionHeader(title: '6. Image Picker Placeholder', subtitle: 'Tap area foto untuk opsi pilih gambar'),
-          _ImagePickerDemo(),
-          SectionHeader(title: '7. Color Picker', subtitle: 'Tap palet warna untuk pilih warna'),
-          _ColorPicker(),
-          SizedBox(height: 32),
+        children: [
+          SectionHeader(title: l10n.gallerySectionChipVariants, subtitle: l10n.gallerySectionChipVariantsDesc),
+          const _ChipVariants(),
+          SectionHeader(title: l10n.gallerySectionBadge, subtitle: l10n.gallerySectionBadgeDesc),
+          const _BadgeDemo(),
+          SectionHeader(title: l10n.gallerySectionSearchFilter, subtitle: l10n.gallerySectionSearchFilterDesc),
+          const _SearchBarFilter(),
+          SectionHeader(title: l10n.gallerySectionTooltip, subtitle: l10n.gallerySectionTooltipDesc),
+          const _TooltipShowcase(),
+          SectionHeader(title: l10n.gallerySectionClipboard, subtitle: l10n.gallerySectionClipboardDesc),
+          const _ClipboardCopy(),
+          SectionHeader(title: l10n.gallerySectionImagePicker, subtitle: l10n.gallerySectionImagePickerDesc),
+          const _ImagePickerDemo(),
+          SectionHeader(title: l10n.gallerySectionColorPicker, subtitle: l10n.gallerySectionColorPickerDesc),
+          const _ColorPicker(),
+          const SizedBox(height: 32),
         ],
       ),
     );
