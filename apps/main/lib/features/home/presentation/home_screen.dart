@@ -16,6 +16,7 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
@@ -63,7 +64,11 @@ class HomeScreen extends ConsumerWidget {
                 },
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 32)),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 32 + MediaQuery.of(context).padding.bottom,
+              ),
+            ),
           ],
         ),
       ),
