@@ -22,6 +22,10 @@ Future<void> bootstrap() async {
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
 
+  // Initialize Crashlytics (requires Firebase Core)
+  // TODO: Uncomment after Firebase is initialized
+  // await CrashlyticsService.init();
+
   // Initialize offline database
   final database = AppDatabase();
 
