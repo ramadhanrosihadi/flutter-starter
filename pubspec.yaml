@@ -26,6 +26,20 @@ melos:
       run: cd apps/variant && flutter run --dart-define=ENV=dev
       description: Run the variant app in dev environment.
 
+    l10n:
+      run: cd packages/core && flutter gen-l10n
+      description: Generate localization files for the core package.
+
+    codegen:
+      run: dart run build_runner build --delete-conflicting-outputs
+      description: Run code generation (Riverpod, Drift, etc.) for all packages
+      packageFilters:
+        dependsOn: build_runner
+
+    postbootstrap:
+      run: melos run l10n && melos run codegen
+      description: Auto-generate l10n and run codegen after bootstrap
+
     analyze:
       run: dart analyze packages/core packages/features_shared apps/main apps/variant
       description: Analyze all packages and apps.
