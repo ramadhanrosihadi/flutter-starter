@@ -2,7 +2,13 @@
 
 Panduan ini dipakai setelah repo di-fork atau dicopy untuk project baru. Tujuannya sederhana: ubah identitas project, pastikan dependency siap, lalu jalankan app tanpa harus menebak file mana yang perlu disentuh.
 
+> [!TIP]
+> **Baru mengenal monorepo, Clean Architecture, Riverpod Generator, Drift SQLite, atau Mason Bricks?**
+> Kami menyediakan seri panduan belajar interaktif khusus pemula di folder [docs/tutorial/](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/).
+> Silakan mulai dari **[00_overview.md (Peta Jalur Belajar)](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/00_overview.md)**!
+
 ---
+
 
 ## 1. Prasyarat
 

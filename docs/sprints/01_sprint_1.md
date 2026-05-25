@@ -12,9 +12,9 @@
 
 ## Daftar Tugas
 
-- [ ] [Tugas 1.1: Migrasi ke Riverpod Generator (`@riverpod`)](#tugas-11-migrasi-ke-riverpod-generator-riverpod)
-- [ ] [Tugas 1.2: Integrasi Riil Firebase Core & FCM](#tugas-12-integrasi-riil-firebase-core--fcm)
-- [ ] [Tugas 1.3: Integrasi Database Offline Isar](#tugas-13-integrasi-database-offline-isar)
+- [x] [Tugas 1.1: Migrasi ke Riverpod Generator (`@riverpod`)](#tugas-11-migrasi-ke-riverpod-generator-riverpod)
+- [x] [Tugas 1.2: Integrasi Riil Firebase Core & FCM](#tugas-12-integrasi-riil-firebase-core--fcm)
+- [x] [Tugas 1.3: Integrasi Database Offline Drift (SQLite)](#tugas-13-integrasi-database-offline-isar)
 
 ---
 

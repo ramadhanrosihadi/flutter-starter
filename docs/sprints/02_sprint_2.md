@@ -11,9 +11,9 @@
 
 ## Daftar Tugas
 
-- [ ] [Tugas 2.1: Auto-Refresh Token (401 Interceptor)](#tugas-21-auto-refresh-token-401-interceptor)
-- [ ] [Tugas 2.2: Premium Splash Screen & Onboarding UI](#tugas-22-premium-splash-screen--onboarding-ui)
-- [ ] [Tugas 2.3: Autentikasi Biometrik](#tugas-23-autentikasi-biometrik)
+- [x] [Tugas 2.1: Auto-Refresh Token (401 Interceptor)](#tugas-21-auto-refresh-token-401-interceptor)
+- [x] [Tugas 2.2: Premium Splash Screen & Onboarding UI](#tugas-22-premium-splash-screen--onboarding-ui)
+- [x] [Tugas 2.3: Autentikasi Biometrik](#tugas-23-autentikasi-biometrik)
 
 ---
 

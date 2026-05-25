@@ -12,9 +12,9 @@
 
 ## Daftar Tugas
 
-- [ ] [Tugas 4.1: Mason CLI Bricks — Otomasi Boilerplate Fitur](#tugas-41-mason-cli-bricks--otomasi-boilerplate-fitur)
-- [ ] [Tugas 4.2: Firebase Crashlytics & Performance Monitoring](#tugas-42-firebase-crashlytics--performance-monitoring)
-- [ ] [Tugas 4.3: Network Certificate Pinning](#tugas-43-network-certificate-pinning)
+- [x] [Tugas 4.1: Mason CLI Bricks — Otomasi Boilerplate Fitur](#tugas-41-mason-cli-bricks--otomasi-boilerplate-fitur)
+- [x] [Tugas 4.2: Firebase Crashlytics & Performance Monitoring](#tugas-42-firebase-crashlytics--performance-monitoring)
+- [x] [Tugas 4.3: Network Certificate Pinning](#tugas-43-network-certificate-pinning)
 
 ---
 

@@ -10,8 +10,8 @@
 
 ## Daftar Tugas
 
-- [ ] [Tugas 3.1: Buat `CLAUDE.md` (Panduan Instan AI Agent)](#tugas-31-buat-claudemd-panduan-instan-ai-agent)
-- [ ] [Tugas 3.2: Buat `docs/firebase-setup.md` (Panduan Integrasi Firebase)](#tugas-32-buat-docsfirebase-setupmd-panduan-integrasi-firebase)
+- [x] [Tugas 3.1: Buat `CLAUDE.md` (Panduan Instan AI Agent)](#tugas-31-buat-claudemd-panduan-instan-ai-agent)
+- [x] [Tugas 3.2: Buat `docs/firebase-setup.md` (Panduan Integrasi Firebase)](#tugas-32-buat-docsfirebase-setupmd-panduan-integrasi-firebase)
 
 ---
 

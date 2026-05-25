@@ -8,9 +8,9 @@
 
 ## Daftar Tugas
 
-- [ ] [Tugas 0.1: Perbaiki Compile Error `RadioGroup`](#tugas-01-perbaiki-compile-error-radiogroup)
-- [ ] [Tugas 0.2: Generate File `AppLocalizations` (L10n)](#tugas-02-generate-file-applocalizations-l10n)
-- [ ] [Tugas 0.3: Amankan `.gitignore` dari Kebocoran Kredensial](#tugas-03-amankan-gitignore-dari-kebocoran-kredensial)
+- [x] [Tugas 0.1: Perbaiki Compile Error `RadioGroup`](#tugas-01-perbaiki-compile-error-radiogroup)
+- [x] [Tugas 0.2: Generate File `AppLocalizations` (L10n)](#tugas-02-generate-file-applocalizations-l10n)
+- [x] [Tugas 0.3: Amankan `.gitignore` dari Kebocoran Kredensial](#tugas-03-amankan-gitignore-dari-kebocoran-kredensial)
 
 ---
 
