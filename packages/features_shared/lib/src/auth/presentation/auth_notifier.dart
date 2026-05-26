@@ -34,7 +34,7 @@ class AuthNotifier extends _$AuthNotifier {
       final user = await _getCurrentUser();
       state =
           user != null ? AuthAuthenticated(user) : const AuthUnauthenticated();
-    } on Exception catch (e) {
+    } catch (e) {
       state = AuthError(e.toString());
     }
   }
@@ -44,7 +44,7 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       final user = await _login(email: email, password: password);
       state = AuthAuthenticated(user);
-    } on Exception catch (e) {
+    } catch (e) {
       state = AuthError(e.toString());
     }
   }
@@ -59,7 +59,7 @@ class AuthNotifier extends _$AuthNotifier {
       final user =
           await _register(name: name, email: email, password: password);
       state = AuthAuthenticated(user);
-    } on Exception catch (e) {
+    } catch (e) {
       state = AuthError(e.toString());
     }
   }
@@ -69,8 +69,23 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       await _logout();
       state = const AuthUnauthenticated();
-    } on Exception catch (e) {
+    } catch (e) {
       state = AuthError(e.toString());
+    }
+  }
+
+  Future<void> updateUserProfile({
+    required String name,
+    required String email,
+  }) async {
+    if (state is! AuthAuthenticated) return;
+    
+    final repository = ref.read(authRepositoryProvider);
+    try {
+      final updatedUser = await repository.updateProfile(name: name, email: email);
+      state = AuthAuthenticated(updatedUser);
+    } catch (e) {
+      rethrow;
     }
   }
 

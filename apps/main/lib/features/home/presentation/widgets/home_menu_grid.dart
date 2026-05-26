@@ -26,7 +26,7 @@ const _menuItems = [
   _MenuItem(label: 'Menu 03', icon: Icons.show_chart, color: Colors.teal),
   _MenuItem(label: 'Menu 04', icon: Icons.storage, color: Colors.amber),
   _MenuItem(label: 'Menu 05', icon: Icons.group_add, color: Colors.green),
-  _MenuItem(label: 'Menu 06', icon: Icons.person, color: Colors.cyan),
+  _MenuItem(label: 'Profil', icon: Icons.person_outline_rounded, color: Colors.cyan),
   _MenuItem(label: 'Menu 07', icon: Icons.people, color: Color(0xFF00695C)),
   _MenuItem(label: 'Menu 08', icon: Icons.bar_chart, color: Colors.deepPurple),
   _MenuItem(label: 'Menu 09', icon: Icons.search, color: Colors.teal),

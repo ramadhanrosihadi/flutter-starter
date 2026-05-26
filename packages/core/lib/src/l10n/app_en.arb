@@ -170,5 +170,8 @@
   "quotesLoadError": "Failed to Load Data",
   "quotesSave": "Save Quote",
   "quotesCancel": "Cancel",
-  "quotesConfirmDelete": "Delete"
+  "quotesConfirmDelete": "Delete",
+  "quoteOfTheDayTitle": "Quote of the Day",
+  "quoteOfTheDayEmpty": "No active quotes yet. Tap here to write your first inspiration!",
+  "quoteOfTheDayCopySuccess": "Quote successfully copied to clipboard!"
 }

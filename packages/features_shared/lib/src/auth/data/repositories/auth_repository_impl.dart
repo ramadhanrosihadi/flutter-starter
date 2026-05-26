@@ -2,6 +2,7 @@ import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_local_data_source.dart';
 import '../datasources/auth_remote_data_source.dart';
+import '../models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl({
@@ -25,7 +26,14 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await _local.clearUser();
+    try {
+      await _remote.logout();
+    } catch (_) {
+      // Fail-safe: even if backend logout fails (e.g. offline), 
+      // we must still clear the local user session.
+    } finally {
+      await _local.clearUser();
+    }
   }
 
   @override
@@ -45,4 +53,27 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<User?> getCurrentUser() => _local.getUser();
+
+  @override
+  Future<User> updateProfile({
+    required String name,
+    required String email,
+  }) async {
+    final updated = await _remote.updateProfile(name: name, email: email);
+    
+    // Retrieve current user to keep the auth token!
+    final currentUser = await _local.getUser();
+    final merged = UserModel(
+      id: updated.id,
+      name: updated.name,
+      email: updated.email,
+      phone: updated.phone ?? currentUser?.phone,
+      avatarUrl: updated.avatarUrl ?? currentUser?.avatarUrl,
+      roles: updated.roles.isNotEmpty ? updated.roles : (currentUser?.roles ?? const []),
+      token: currentUser?.token,
+    );
+    
+    await _local.saveUser(merged);
+    return merged;
+  }
 }

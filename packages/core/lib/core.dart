@@ -19,6 +19,7 @@ export 'src/l10n/app_localizations.dart';
 export 'src/network/dio_client.dart';
 export 'src/network/token_refresh_interceptor.dart';
 export 'src/network/certificate_pinning.dart';
+export 'src/network/connectivity_service.dart';
 
 // responsive
 export 'src/responsive/breakpoints.dart';

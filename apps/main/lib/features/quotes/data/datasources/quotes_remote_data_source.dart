@@ -16,7 +16,7 @@ class QuotesRemoteDataSource {
   /// `GET /v1/quotes`
   /// Returns a list of [QuoteModel] parsed from `response.data['data']`.
   Future<List<QuoteModel>> fetchAll() async {
-    final response = await _dio.get('/v1/quotes');
+    final response = await _dio.get('v1/quotes');
     final data = response.data['data'] as List<dynamic>;
     return data
         .map((json) => QuoteModel.fromJson(json as Map<String, dynamic>))
@@ -34,7 +34,7 @@ class QuotesRemoteDataSource {
     bool isActive = true,
   }) async {
     final response = await _dio.post(
-      '/v1/quotes',
+      'v1/quotes',
       data: {
         'text': text,
         'author': author,
@@ -64,7 +64,7 @@ class QuotesRemoteDataSource {
     if (source != null) body['source'] = source;
     if (isActive != null) body['is_active'] = isActive;
 
-    final response = await _dio.put('/v1/quotes/$id', data: body);
+    final response = await _dio.put('v1/quotes/$id', data: body);
     return QuoteModel.fromJson(
       response.data['data'] as Map<String, dynamic>,
     );
@@ -74,7 +74,7 @@ class QuotesRemoteDataSource {
   ///
   /// `DELETE /v1/quotes/{id}`
   Future<void> delete(int id) async {
-    await _dio.delete('/v1/quotes/$id');
+    await _dio.delete('v1/quotes/$id');
   }
 
   /// Checks whether the server is reachable.
@@ -83,7 +83,7 @@ class QuotesRemoteDataSource {
   /// Returns `true` if the server responds successfully, `false` otherwise.
   Future<bool> checkHealth() async {
     try {
-      final response = await _dio.get('/v1/health');
+      final response = await _dio.get('v1/health');
       return response.data['success'] == true;
     } on DioException {
       return false;

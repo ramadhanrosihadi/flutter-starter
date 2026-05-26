@@ -25,6 +25,8 @@ class OnboardingNotifier extends _$OnboardingNotifier {
   Future<void> completeOnboarding() async {
     final repo = await ref.read(onboardingRepositoryProvider.future);
     await repo.setOnboardingCompleted();
-    state = const AsyncData(true);
+    if (ref.mounted) {
+      state = const AsyncData(true);
+    }
   }
 }

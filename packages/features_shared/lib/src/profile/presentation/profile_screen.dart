@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../auth/presentation/auth_provider.dart';
 import 'profile_provider.dart';
@@ -14,7 +15,21 @@ class ProfileScreen extends ConsumerWidget {
     final profileAsync = ref.watch(profileProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.profile)),
+      appBar: AppBar(
+        title: Text(l10n.profile),
+        actions: [
+          profileAsync.maybeWhen(
+            data: (profile) => profile != null
+                ? IconButton(
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => context.push(AppRoutes.editProfile),
+                    tooltip: 'Ubah Profil',
+                  )
+                : const SizedBox.shrink(),
+            orElse: () => const SizedBox.shrink(),
+          ),
+        ],
+      ),
       body: profileAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (_, __) => Center(child: Text(l10n.errorGeneral)),

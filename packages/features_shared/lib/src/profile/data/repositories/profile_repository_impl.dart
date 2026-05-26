@@ -22,6 +22,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<void> updateProfile(Profile profile) async {
-    // TODO: implementasi update via API — Sprint 006 scope hanya read-only.
+    await _authRepository.updateProfile(
+      name: profile.name,
+      email: profile.email,
+    );
   }
 }

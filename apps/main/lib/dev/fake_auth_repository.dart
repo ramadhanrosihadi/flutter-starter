@@ -28,4 +28,20 @@ class FakeAuthRepository implements AuthRepository {
 
   @override
   Future<User?> getCurrentUser() async => _currentUser;
+
+  @override
+  Future<User> updateProfile({
+    required String name,
+    required String email,
+  }) async {
+    _currentUser = User(
+      id: _currentUser?.id ?? 'dev-001',
+      name: name,
+      email: email,
+      phone: _currentUser?.phone,
+      avatarUrl: _currentUser?.avatarUrl,
+      roles: _currentUser?.roles ?? const [],
+    );
+    return _currentUser!;
+  }
 }

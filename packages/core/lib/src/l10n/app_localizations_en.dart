@@ -537,4 +537,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quotesConfirmDelete => 'Delete';
+
+  @override
+  String get quoteOfTheDayTitle => 'Quote of the Day';
+
+  @override
+  String get quoteOfTheDayEmpty =>
+      'No active quotes yet. Tap here to write your first inspiration!';
+
+  @override
+  String get quoteOfTheDayCopySuccess =>
+      'Quote successfully copied to clipboard!';
 }

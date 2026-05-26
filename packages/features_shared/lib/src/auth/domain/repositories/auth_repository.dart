@@ -9,4 +9,5 @@ abstract class AuthRepository {
     required String password,
   });
   Future<User?> getCurrentUser();
+  Future<User> updateProfile({required String name, required String email});
 }

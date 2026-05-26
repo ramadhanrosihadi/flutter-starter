@@ -1,23 +1,49 @@
 import 'package:app_main/features/home/domain/entities/user_profile.dart';
 import 'package:app_main/features/home/presentation/home_provider.dart';
 import 'package:app_main/features/home/presentation/home_screen.dart';
+import 'package:app_main/features/quotes/presentation/quotes_notifier.dart';
+import 'package:app_main/features/quotes/domain/entities/quote_entity.dart';
 import 'package:core/core.dart';
+import 'package:features_shared/features_shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+class FakeAuthNotifier extends AuthNotifier {
+  FakeAuthNotifier(this._initialState);
+  final AuthState _initialState;
+
+  @override
+  AuthState build() => _initialState;
+}
+
+class FakeQuotesNotifier extends QuotesNotifier {
+  @override
+  Future<List<QuoteEntity>> build() async => [];
+}
+
 void main() {
   const testProfile = UserProfile(
     name: 'Test User',
     email: 'test@example.com',
-    gender: 'Putra',
-    age: '25',
-    city: 'Jakarta',
+    phone: '08123456789',
+    avatarUrl: null,
+    role: 'Member',
   );
 
   Widget buildSubject() => ProviderScope(
         overrides: [
+          authProvider.overrideWith(() => FakeAuthNotifier(
+                const AuthAuthenticated(User(
+                  id: '1',
+                  name: 'Test User',
+                  email: 'test@example.com',
+                  phone: '08123456789',
+                  roles: ['Member'],
+                )),
+              )),
+          quotesProvider.overrideWith(() => FakeQuotesNotifier()),
           userProfileProvider.overrideWith((_) async => testProfile),
         ],
         child: MaterialApp.router(
@@ -49,14 +75,14 @@ void main() {
   testWidgets('shows all 15 menu items', (tester) async {
     await tester.pumpWidget(buildSubject());
     await tester.pumpAndSettle();
-    expect(find.text('Menu 01'), findsOneWidget);
+    expect(find.text('Kutipan'), findsOneWidget);
     expect(find.text('Menu 15'), findsOneWidget);
   });
 
   testWidgets('tap menu shows snackbar', (tester) async {
     await tester.pumpWidget(buildSubject());
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Menu 01'));
+    await tester.tap(find.text('Menu 02'));
     await tester.pump();
     expect(find.textContaining('Fitur belum tersedia'), findsOneWidget);
   });

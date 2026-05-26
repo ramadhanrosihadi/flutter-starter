@@ -540,4 +540,15 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get quotesConfirmDelete => 'Hapus';
+
+  @override
+  String get quoteOfTheDayTitle => 'Kutipan Hari Ini';
+
+  @override
+  String get quoteOfTheDayEmpty =>
+      'Belum ada kutipan aktif. Ketuk di sini untuk menulis inspirasi pertama Anda!';
+
+  @override
+  String get quoteOfTheDayCopySuccess =>
+      'Kutipan berhasil disalin ke papan klip!';
 }

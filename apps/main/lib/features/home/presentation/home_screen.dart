@@ -7,6 +7,7 @@ import 'package:features_shared/features_shared.dart';
 import 'home_provider.dart';
 import 'widgets/home_user_header.dart';
 import 'widgets/home_menu_grid.dart';
+import 'widgets/home_quote_of_the_day.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -46,6 +47,7 @@ class HomeScreen extends ConsumerWidget {
                   ? _buildAuthenticatedHeader(context, ref)
                   : _buildGuestHeader(context),
             ),
+            const SliverToBoxAdapter(child: HomeQuoteOfTheDay()),
             const SliverToBoxAdapter(child: Divider(height: 24)),
             SliverToBoxAdapter(
               child: HomeMenuGrid(
@@ -54,6 +56,8 @@ class HomeScreen extends ConsumerWidget {
                     context.push('/ui-gallery');
                   } else if (label == 'Kutipan') {
                     context.push(AppRoutes.quotes);
+                  } else if (label == 'Profil') {
+                    context.push(AppRoutes.profile);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('$label — Fitur belum tersedia')),
@@ -86,9 +90,8 @@ class HomeScreen extends ConsumerWidget {
       ),
       data: (profile) => HomeUserHeader(
         profile: profile,
-        onEditTap: () => ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Edit profil belum tersedia')),
-        ),
+        onEditTap: () => context.push(AppRoutes.editProfile),
+        onProfileTap: () => context.push(AppRoutes.profile),
       ),
     );
   }

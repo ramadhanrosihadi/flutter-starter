@@ -26,6 +26,14 @@ class _QuotesScreenState extends ConsumerState<QuotesScreen> {
   String _searchQuery = '';
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(quotesProvider.notifier).syncInBackground();
+    });
+  }
+
+  @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
@@ -210,6 +218,47 @@ class _QuotesScreenState extends ConsumerState<QuotesScreen> {
               ),
             ),
 
+            // Premium background sync loading indicator
+            if (quotesAsync.isLoading && quotesAsync.hasValue) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: Column(
+                  children: [
+                    const ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(2)),
+                      child: SizedBox(
+                        height: 3,
+                        child: LinearProgressIndicator(),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 10,
+                          height: 10,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 1.5,
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Menyinkronkan data dengan server...',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.2,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+
             // Quotes list
             Expanded(
               child: quotesAsync.when(
@@ -234,25 +283,54 @@ class _QuotesScreenState extends ConsumerState<QuotesScreen> {
                     );
                   }
 
-                  return RefreshIndicator(
-                    onRefresh: () => ref
-                        .read(quotesProvider.notifier)
-                        .refreshQuotes(),
-                    child: ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 88),
-                      itemCount: filtered.length,
-                      itemBuilder: (context, index) {
-                        final quote = filtered[index];
-                        return _QuoteCard(
-                          quote: quote,
-                          onTap: () => context.push(
-                            '${AppRoutes.editQuote}/${quote.localId}',
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(18, 8, 16, 4),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.collections_bookmark_rounded,
+                              size: 14,
+                              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              _searchQuery.isNotEmpty
+                                  ? 'Ditemukan ${filtered.length} kutipan untuk pencarian "${_searchQuery}"'
+                                  : 'Menampilkan ${filtered.length} kutipan',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () => ref
+                              .read(quotesProvider.notifier)
+                              .refreshQuotes(),
+                          child: ListView.builder(
+                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 88),
+                            itemCount: filtered.length,
+                            itemBuilder: (context, index) {
+                              final quote = filtered[index];
+                              return _QuoteCard(
+                                quote: quote,
+                                onTap: () => context.push(
+                                  '${AppRoutes.editQuote}/${quote.localId}',
+                                ),
+                                onDelete: () =>
+                                    _confirmDelete(context, ref, quote),
+                              );
+                            },
                           ),
-                          onDelete: () =>
-                              _confirmDelete(context, ref, quote),
-                        );
-                      },
-                    ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -464,6 +542,32 @@ class _QuoteCard extends StatelessWidget {
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              if (quote.createdAt != null) ...[
+                const SizedBox(height: 12),
+                Divider(
+                  height: 1,
+                  thickness: 0.5,
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time_rounded,
+                      size: 12,
+                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Ditambahkan ${AppDateUtils.timeAgo(quote.createdAt!)}',
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        fontSize: 11,
+                        color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                       ),
                     ),
                   ],

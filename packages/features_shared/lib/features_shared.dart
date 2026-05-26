@@ -32,6 +32,7 @@ export 'src/profile/data/repositories/profile_repository_impl.dart';
 // profile — presentation
 export 'src/profile/presentation/profile_provider.dart';
 export 'src/profile/presentation/profile_screen.dart';
+export 'src/profile/presentation/edit_profile_screen.dart';
 
 // notifications — domain
 export 'src/notifications/domain/entities/app_notification.dart';

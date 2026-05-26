@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../data/biometric_auth_service.dart';
 import 'auth_provider.dart';
@@ -19,6 +20,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
@@ -41,7 +43,39 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authProvider);
 
     ref.listen<AuthState>(authProvider, (_, next) {
-      if (next is AuthAuthenticated) widget.onLoginSuccess?.call();
+      if (next is AuthAuthenticated) {
+        if (widget.onLoginSuccess != null) {
+          widget.onLoginSuccess?.call();
+        } else {
+          context.go('/');
+        }
+      } else if (next is AuthError) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => AlertDialog(
+              title: Row(
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  const SizedBox(width: 8),
+                  const Text('Login Gagal'),
+                ],
+              ),
+              content: Text(next.message),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        });
+      }
     });
 
     return Scaffold(
@@ -71,8 +105,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _passwordCtrl,
-                  obscureText: true,
-                  decoration: InputDecoration(labelText: l10n.password),
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                    labelText: l10n.password,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off_rounded
+                            : Icons.visibility_rounded,
+                      ),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
+                    ),
+                  ),
                   validator: (v) => (v == null || v.length < 6)
                       ? l10n.errorPasswordTooShort
                       : null,

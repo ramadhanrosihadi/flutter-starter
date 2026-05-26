@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:features_shared/features_shared.dart';
 
 import '../data/repositories/home_repository_impl.dart';
 import '../domain/entities/user_profile.dart';
@@ -9,7 +10,8 @@ part 'home_provider.g.dart';
 
 @riverpod
 HomeRepository homeRepository(Ref ref) {
-  return const HomeRepositoryImpl();
+  final authRepo = ref.watch(authRepositoryProvider);
+  return HomeRepositoryImpl(authRepo);
 }
 
 @riverpod
@@ -19,5 +21,7 @@ GetUserProfileUseCase getUserProfileUseCase(Ref ref) {
 
 @riverpod
 Future<UserProfile> userProfile(Ref ref) {
+  // Watch authProvider so it automatically invalidates/rebuilds when authState changes
+  ref.watch(authProvider);
   return ref.read(getUserProfileUseCaseProvider).call();
 }

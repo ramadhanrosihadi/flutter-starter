@@ -1117,6 +1117,24 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Hapus'**
   String get quotesConfirmDelete;
+
+  /// No description provided for @quoteOfTheDayTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan Hari Ini'**
+  String get quoteOfTheDayTitle;
+
+  /// No description provided for @quoteOfTheDayEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada kutipan aktif. Ketuk di sini untuk menulis inspirasi pertama Anda!'**
+  String get quoteOfTheDayEmpty;
+
+  /// No description provided for @quoteOfTheDayCopySuccess.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan berhasil disalin ke papan klip!'**
+  String get quoteOfTheDayCopySuccess;
 }
 
 class _AppLocalizationsDelegate

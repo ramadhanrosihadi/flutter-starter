@@ -4,7 +4,7 @@ import '../data/repositories/profile_repository_impl.dart';
 import '../domain/entities/profile.dart';
 import '../domain/repositories/profile_repository.dart';
 import '../domain/usecases/get_profile_use_case.dart';
-import '../../auth/presentation/auth_repository_provider.dart';
+import '../../auth/presentation/auth_provider.dart';
 
 part 'profile_provider.g.dart';
 
@@ -15,6 +15,7 @@ ProfileRepository profileRepository(Ref ref) {
 
 @riverpod
 Future<Profile?> profile(Ref ref) {
+  ref.watch(authProvider);
   final repo = ref.watch(profileRepositoryProvider);
   return GetProfileUseCase(repo)();
 }

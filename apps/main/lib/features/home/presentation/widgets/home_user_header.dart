@@ -7,10 +7,12 @@ class HomeUserHeader extends StatelessWidget {
     super.key,
     required this.profile,
     required this.onEditTap,
+    required this.onProfileTap,
   });
 
   final UserProfile profile;
   final VoidCallback onEditTap;
+  final VoidCallback onProfileTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,38 +20,76 @@ class HomeUserHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CircleAvatar(
-            radius: 36,
-            backgroundColor: theme.colorScheme.surfaceContainerHighest,
-            child: Icon(
-              Icons.person,
-              size: 40,
-              color: theme.colorScheme.onSurfaceVariant,
+          GestureDetector(
+            onTap: onProfileTap,
+            child: CircleAvatar(
+              radius: 32,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
+              backgroundImage: profile.avatarUrl != null && profile.avatarUrl!.isNotEmpty
+                  ? NetworkImage(profile.avatarUrl!)
+                  : null,
+              child: profile.avatarUrl == null || profile.avatarUrl!.isEmpty
+                  ? Icon(
+                      Icons.person,
+                      size: 32,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    )
+                  : null,
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hi, ${profile.name}',
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: onProfileTap,
+              behavior: HitTestBehavior.opaque,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Hi, ${profile.name}',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 2),
-                Text(profile.email, style: theme.textTheme.bodyMedium),
-                const SizedBox(height: 2),
-                Text(
-                  '${profile.gender} | Usia ${profile.age} | Domisili di ${profile.city}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                  const SizedBox(height: 2),
+                  Text(
+                    profile.email,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          profile.role,
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      if (profile.phone != null && profile.phone!.isNotEmpty) ...[
+                        const SizedBox(width: 8),
+                        Text(
+                          '•  ${profile.phone}',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           IconButton(

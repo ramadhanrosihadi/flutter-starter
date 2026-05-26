@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:core/core.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../domain/entities/quote_entity.dart';
@@ -20,8 +21,20 @@ part 'quotes_notifier.g.dart';
 class QuotesNotifier extends _$QuotesNotifier {
   @override
   Future<List<QuoteEntity>> build() async {
+    // Listen to network status changes and trigger background sync when coming online
+    ref.listen(connectivityServiceProvider, (previous, next) {
+      final isOnline = next.value ?? false;
+      final wasOnline = previous?.value ?? false;
+      
+      // Trigger sync ONLY when transitioning from offline to online
+      if (isOnline && !wasOnline) {
+        log('Connectivity changed from Offline to Online. Flushing sync queue...', name: 'QuotesNotifier');
+        syncInBackground();
+      }
+    });
+
     // Trigger background sync (don't block UI loading)
-    _syncInBackground();
+    syncInBackground();
 
     // Return local data as the initial state
     return _loadLocalQuotes();
@@ -54,7 +67,7 @@ class QuotesNotifier extends _$QuotesNotifier {
       state = AsyncData(await _loadLocalQuotes());
 
       // Background sync
-      _syncInBackground();
+      syncInBackground();
     } catch (e, st) {
       log(
         'QuotesNotifier.addQuote: failed',
@@ -92,7 +105,7 @@ class QuotesNotifier extends _$QuotesNotifier {
       state = AsyncData(await _loadLocalQuotes());
 
       // Background sync
-      _syncInBackground();
+      syncInBackground();
     } catch (e, st) {
       log(
         'QuotesNotifier.editQuote: failed for localId=$localId',
@@ -119,7 +132,7 @@ class QuotesNotifier extends _$QuotesNotifier {
       state = AsyncData(await _loadLocalQuotes());
 
       // Background sync
-      _syncInBackground();
+      syncInBackground();
     } catch (e, st) {
       log(
         'QuotesNotifier.removeQuote: failed for localId=$localId',
@@ -167,23 +180,23 @@ class QuotesNotifier extends _$QuotesNotifier {
   ///
   /// After sync completes, silently updates the state with fresh data.
   /// Errors are logged but never thrown to the UI.
-  void _syncInBackground() {
+  void syncInBackground() {
     Future(() async {
       try {
+        // Set state to loading while retaining the current local data
+        final previousState = state;
+        state = AsyncLoading<List<QuoteEntity>>().copyWithPrevious(previousState);
+
         await _syncData();
         // Silently refresh state after successful sync
         final freshData = await _loadLocalQuotes();
-        // Only update if we're still in a data state (not disposed)
-        if (state is AsyncData) {
-          state = AsyncData(freshData);
-        }
+        state = AsyncData(freshData);
       } catch (e) {
         // Swallow — background sync should never crash the UI
-        log(
-          'QuotesNotifier._syncInBackground: failed silently',
-          error: e,
-          name: 'QuotesNotifier',
-        );
+        print('QuotesNotifier.syncInBackground: failed silently, error: $e');
+        // Fallback to local database data
+        final local = await _loadLocalQuotes();
+        state = AsyncData(local);
       }
     });
   }

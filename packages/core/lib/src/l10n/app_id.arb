@@ -269,5 +269,8 @@
   "quotesLoadError": "Gagal Memuat Data",
   "quotesSave": "Simpan Kutipan",
   "quotesCancel": "Batal",
-  "quotesConfirmDelete": "Hapus"
+  "quotesConfirmDelete": "Hapus",
+  "quoteOfTheDayTitle": "Kutipan Hari Ini",
+  "quoteOfTheDayEmpty": "Belum ada kutipan aktif. Ketuk di sini untuk menulis inspirasi pertama Anda!",
+  "quoteOfTheDayCopySuccess": "Kutipan berhasil disalin ke papan klip!"
 }
