@@ -311,15 +311,535 @@ class CacheEntriesCompanion extends UpdateCompanion<CacheEntry> {
   }
 }
 
+class $QuotesTable extends Quotes with TableInfo<$QuotesTable, Quote> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $QuotesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _localIdMeta =
+      const VerificationMeta('localId');
+  @override
+  late final GeneratedColumn<int> localId = GeneratedColumn<int>(
+      'local_id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _serverIdMeta =
+      const VerificationMeta('serverId');
+  @override
+  late final GeneratedColumn<int> serverId = GeneratedColumn<int>(
+      'server_id', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _contentMeta =
+      const VerificationMeta('content');
+  @override
+  late final GeneratedColumn<String> content = GeneratedColumn<String>(
+      'content', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _authorMeta = const VerificationMeta('author');
+  @override
+  late final GeneratedColumn<String> author = GeneratedColumn<String>(
+      'author', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sourceMeta = const VerificationMeta('source');
+  @override
+  late final GeneratedColumn<String> source = GeneratedColumn<String>(
+      'source', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
+      defaultValue: const Constant(true));
+  static const VerificationMeta _isSyncedMeta =
+      const VerificationMeta('isSynced');
+  @override
+  late final GeneratedColumn<bool> isSynced = GeneratedColumn<bool>(
+      'is_synced', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_synced" IN (0, 1))'),
+      defaultValue: const Constant(false));
+  static const VerificationMeta _syncActionMeta =
+      const VerificationMeta('syncAction');
+  @override
+  late final GeneratedColumn<String> syncAction = GeneratedColumn<String>(
+      'sync_action', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+      'updated_at', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        localId,
+        serverId,
+        content,
+        author,
+        source,
+        isActive,
+        isSynced,
+        syncAction,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'quotes';
+  @override
+  VerificationContext validateIntegrity(Insertable<Quote> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('local_id')) {
+      context.handle(_localIdMeta,
+          localId.isAcceptableOrUnknown(data['local_id']!, _localIdMeta));
+    }
+    if (data.containsKey('server_id')) {
+      context.handle(_serverIdMeta,
+          serverId.isAcceptableOrUnknown(data['server_id']!, _serverIdMeta));
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    if (data.containsKey('author')) {
+      context.handle(_authorMeta,
+          author.isAcceptableOrUnknown(data['author']!, _authorMeta));
+    } else if (isInserting) {
+      context.missing(_authorMeta);
+    }
+    if (data.containsKey('source')) {
+      context.handle(_sourceMeta,
+          source.isAcceptableOrUnknown(data['source']!, _sourceMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    if (data.containsKey('is_synced')) {
+      context.handle(_isSyncedMeta,
+          isSynced.isAcceptableOrUnknown(data['is_synced']!, _isSyncedMeta));
+    }
+    if (data.containsKey('sync_action')) {
+      context.handle(
+          _syncActionMeta,
+          syncAction.isAcceptableOrUnknown(
+              data['sync_action']!, _syncActionMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {localId};
+  @override
+  Quote map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Quote(
+      localId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}local_id'])!,
+      serverId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}server_id']),
+      content: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      author: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}author'])!,
+      source: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}source']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      isSynced: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_synced'])!,
+      syncAction: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sync_action']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at']),
+    );
+  }
+
+  @override
+  $QuotesTable createAlias(String alias) {
+    return $QuotesTable(attachedDatabase, alias);
+  }
+}
+
+class Quote extends DataClass implements Insertable<Quote> {
+  /// Local auto-increment primary key.
+  final int localId;
+
+  /// Server-assigned ID. Null when created offline and not yet synced.
+  final int? serverId;
+
+  /// The quote text content.
+  /// Named `content` to avoid shadowing Drift's `text()` method.
+  final String content;
+
+  /// The quote author name.
+  final String author;
+
+  /// Optional source of the quote (book, speech, etc.).
+  final String? source;
+
+  /// Whether the quote is active.
+  final bool isActive;
+
+  /// Whether this record has been synced with the server.
+  final bool isSynced;
+
+  /// Pending sync action: 'create', 'update', 'delete', or null.
+  final String? syncAction;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  const Quote(
+      {required this.localId,
+      this.serverId,
+      required this.content,
+      required this.author,
+      this.source,
+      required this.isActive,
+      required this.isSynced,
+      this.syncAction,
+      this.createdAt,
+      this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['local_id'] = Variable<int>(localId);
+    if (!nullToAbsent || serverId != null) {
+      map['server_id'] = Variable<int>(serverId);
+    }
+    map['content'] = Variable<String>(content);
+    map['author'] = Variable<String>(author);
+    if (!nullToAbsent || source != null) {
+      map['source'] = Variable<String>(source);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    map['is_synced'] = Variable<bool>(isSynced);
+    if (!nullToAbsent || syncAction != null) {
+      map['sync_action'] = Variable<String>(syncAction);
+    }
+    if (!nullToAbsent || createdAt != null) {
+      map['created_at'] = Variable<DateTime>(createdAt);
+    }
+    if (!nullToAbsent || updatedAt != null) {
+      map['updated_at'] = Variable<DateTime>(updatedAt);
+    }
+    return map;
+  }
+
+  QuotesCompanion toCompanion(bool nullToAbsent) {
+    return QuotesCompanion(
+      localId: Value(localId),
+      serverId: serverId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(serverId),
+      content: Value(content),
+      author: Value(author),
+      source:
+          source == null && nullToAbsent ? const Value.absent() : Value(source),
+      isActive: Value(isActive),
+      isSynced: Value(isSynced),
+      syncAction: syncAction == null && nullToAbsent
+          ? const Value.absent()
+          : Value(syncAction),
+      createdAt: createdAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdAt),
+      updatedAt: updatedAt == null && nullToAbsent
+          ? const Value.absent()
+          : Value(updatedAt),
+    );
+  }
+
+  factory Quote.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Quote(
+      localId: serializer.fromJson<int>(json['localId']),
+      serverId: serializer.fromJson<int?>(json['serverId']),
+      content: serializer.fromJson<String>(json['content']),
+      author: serializer.fromJson<String>(json['author']),
+      source: serializer.fromJson<String?>(json['source']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      isSynced: serializer.fromJson<bool>(json['isSynced']),
+      syncAction: serializer.fromJson<String?>(json['syncAction']),
+      createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime?>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'localId': serializer.toJson<int>(localId),
+      'serverId': serializer.toJson<int?>(serverId),
+      'content': serializer.toJson<String>(content),
+      'author': serializer.toJson<String>(author),
+      'source': serializer.toJson<String?>(source),
+      'isActive': serializer.toJson<bool>(isActive),
+      'isSynced': serializer.toJson<bool>(isSynced),
+      'syncAction': serializer.toJson<String?>(syncAction),
+      'createdAt': serializer.toJson<DateTime?>(createdAt),
+      'updatedAt': serializer.toJson<DateTime?>(updatedAt),
+    };
+  }
+
+  Quote copyWith(
+          {int? localId,
+          Value<int?> serverId = const Value.absent(),
+          String? content,
+          String? author,
+          Value<String?> source = const Value.absent(),
+          bool? isActive,
+          bool? isSynced,
+          Value<String?> syncAction = const Value.absent(),
+          Value<DateTime?> createdAt = const Value.absent(),
+          Value<DateTime?> updatedAt = const Value.absent()}) =>
+      Quote(
+        localId: localId ?? this.localId,
+        serverId: serverId.present ? serverId.value : this.serverId,
+        content: content ?? this.content,
+        author: author ?? this.author,
+        source: source.present ? source.value : this.source,
+        isActive: isActive ?? this.isActive,
+        isSynced: isSynced ?? this.isSynced,
+        syncAction: syncAction.present ? syncAction.value : this.syncAction,
+        createdAt: createdAt.present ? createdAt.value : this.createdAt,
+        updatedAt: updatedAt.present ? updatedAt.value : this.updatedAt,
+      );
+  Quote copyWithCompanion(QuotesCompanion data) {
+    return Quote(
+      localId: data.localId.present ? data.localId.value : this.localId,
+      serverId: data.serverId.present ? data.serverId.value : this.serverId,
+      content: data.content.present ? data.content.value : this.content,
+      author: data.author.present ? data.author.value : this.author,
+      source: data.source.present ? data.source.value : this.source,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      isSynced: data.isSynced.present ? data.isSynced.value : this.isSynced,
+      syncAction:
+          data.syncAction.present ? data.syncAction.value : this.syncAction,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Quote(')
+          ..write('localId: $localId, ')
+          ..write('serverId: $serverId, ')
+          ..write('content: $content, ')
+          ..write('author: $author, ')
+          ..write('source: $source, ')
+          ..write('isActive: $isActive, ')
+          ..write('isSynced: $isSynced, ')
+          ..write('syncAction: $syncAction, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(localId, serverId, content, author, source,
+      isActive, isSynced, syncAction, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Quote &&
+          other.localId == this.localId &&
+          other.serverId == this.serverId &&
+          other.content == this.content &&
+          other.author == this.author &&
+          other.source == this.source &&
+          other.isActive == this.isActive &&
+          other.isSynced == this.isSynced &&
+          other.syncAction == this.syncAction &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class QuotesCompanion extends UpdateCompanion<Quote> {
+  final Value<int> localId;
+  final Value<int?> serverId;
+  final Value<String> content;
+  final Value<String> author;
+  final Value<String?> source;
+  final Value<bool> isActive;
+  final Value<bool> isSynced;
+  final Value<String?> syncAction;
+  final Value<DateTime?> createdAt;
+  final Value<DateTime?> updatedAt;
+  const QuotesCompanion({
+    this.localId = const Value.absent(),
+    this.serverId = const Value.absent(),
+    this.content = const Value.absent(),
+    this.author = const Value.absent(),
+    this.source = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.isSynced = const Value.absent(),
+    this.syncAction = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  QuotesCompanion.insert({
+    this.localId = const Value.absent(),
+    this.serverId = const Value.absent(),
+    required String content,
+    required String author,
+    this.source = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.isSynced = const Value.absent(),
+    this.syncAction = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  })  : content = Value(content),
+        author = Value(author);
+  static Insertable<Quote> custom({
+    Expression<int>? localId,
+    Expression<int>? serverId,
+    Expression<String>? content,
+    Expression<String>? author,
+    Expression<String>? source,
+    Expression<bool>? isActive,
+    Expression<bool>? isSynced,
+    Expression<String>? syncAction,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (localId != null) 'local_id': localId,
+      if (serverId != null) 'server_id': serverId,
+      if (content != null) 'content': content,
+      if (author != null) 'author': author,
+      if (source != null) 'source': source,
+      if (isActive != null) 'is_active': isActive,
+      if (isSynced != null) 'is_synced': isSynced,
+      if (syncAction != null) 'sync_action': syncAction,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  QuotesCompanion copyWith(
+      {Value<int>? localId,
+      Value<int?>? serverId,
+      Value<String>? content,
+      Value<String>? author,
+      Value<String?>? source,
+      Value<bool>? isActive,
+      Value<bool>? isSynced,
+      Value<String?>? syncAction,
+      Value<DateTime?>? createdAt,
+      Value<DateTime?>? updatedAt}) {
+    return QuotesCompanion(
+      localId: localId ?? this.localId,
+      serverId: serverId ?? this.serverId,
+      content: content ?? this.content,
+      author: author ?? this.author,
+      source: source ?? this.source,
+      isActive: isActive ?? this.isActive,
+      isSynced: isSynced ?? this.isSynced,
+      syncAction: syncAction ?? this.syncAction,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (localId.present) {
+      map['local_id'] = Variable<int>(localId.value);
+    }
+    if (serverId.present) {
+      map['server_id'] = Variable<int>(serverId.value);
+    }
+    if (content.present) {
+      map['content'] = Variable<String>(content.value);
+    }
+    if (author.present) {
+      map['author'] = Variable<String>(author.value);
+    }
+    if (source.present) {
+      map['source'] = Variable<String>(source.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (isSynced.present) {
+      map['is_synced'] = Variable<bool>(isSynced.value);
+    }
+    if (syncAction.present) {
+      map['sync_action'] = Variable<String>(syncAction.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('QuotesCompanion(')
+          ..write('localId: $localId, ')
+          ..write('serverId: $serverId, ')
+          ..write('content: $content, ')
+          ..write('author: $author, ')
+          ..write('source: $source, ')
+          ..write('isActive: $isActive, ')
+          ..write('isSynced: $isSynced, ')
+          ..write('syncAction: $syncAction, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $CacheEntriesTable cacheEntries = $CacheEntriesTable(this);
+  late final $QuotesTable quotes = $QuotesTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [cacheEntries];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [cacheEntries, quotes];
 }
 
 typedef $$CacheEntriesTableCreateCompanionBuilder = CacheEntriesCompanion
@@ -483,10 +1003,246 @@ typedef $$CacheEntriesTableProcessedTableManager = ProcessedTableManager<
     (CacheEntry, BaseReferences<_$AppDatabase, $CacheEntriesTable, CacheEntry>),
     CacheEntry,
     PrefetchHooks Function()>;
+typedef $$QuotesTableCreateCompanionBuilder = QuotesCompanion Function({
+  Value<int> localId,
+  Value<int?> serverId,
+  required String content,
+  required String author,
+  Value<String?> source,
+  Value<bool> isActive,
+  Value<bool> isSynced,
+  Value<String?> syncAction,
+  Value<DateTime?> createdAt,
+  Value<DateTime?> updatedAt,
+});
+typedef $$QuotesTableUpdateCompanionBuilder = QuotesCompanion Function({
+  Value<int> localId,
+  Value<int?> serverId,
+  Value<String> content,
+  Value<String> author,
+  Value<String?> source,
+  Value<bool> isActive,
+  Value<bool> isSynced,
+  Value<String?> syncAction,
+  Value<DateTime?> createdAt,
+  Value<DateTime?> updatedAt,
+});
+
+class $$QuotesTableFilterComposer
+    extends Composer<_$AppDatabase, $QuotesTable> {
+  $$QuotesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get localId => $composableBuilder(
+      column: $table.localId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get serverId => $composableBuilder(
+      column: $table.serverId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get author => $composableBuilder(
+      column: $table.author, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get source => $composableBuilder(
+      column: $table.source, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isSynced => $composableBuilder(
+      column: $table.isSynced, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get syncAction => $composableBuilder(
+      column: $table.syncAction, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$QuotesTableOrderingComposer
+    extends Composer<_$AppDatabase, $QuotesTable> {
+  $$QuotesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get localId => $composableBuilder(
+      column: $table.localId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get serverId => $composableBuilder(
+      column: $table.serverId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get author => $composableBuilder(
+      column: $table.author, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get source => $composableBuilder(
+      column: $table.source, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isSynced => $composableBuilder(
+      column: $table.isSynced, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get syncAction => $composableBuilder(
+      column: $table.syncAction, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$QuotesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $QuotesTable> {
+  $$QuotesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get localId =>
+      $composableBuilder(column: $table.localId, builder: (column) => column);
+
+  GeneratedColumn<int> get serverId =>
+      $composableBuilder(column: $table.serverId, builder: (column) => column);
+
+  GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get author =>
+      $composableBuilder(column: $table.author, builder: (column) => column);
+
+  GeneratedColumn<String> get source =>
+      $composableBuilder(column: $table.source, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<bool> get isSynced =>
+      $composableBuilder(column: $table.isSynced, builder: (column) => column);
+
+  GeneratedColumn<String> get syncAction => $composableBuilder(
+      column: $table.syncAction, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$QuotesTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $QuotesTable,
+    Quote,
+    $$QuotesTableFilterComposer,
+    $$QuotesTableOrderingComposer,
+    $$QuotesTableAnnotationComposer,
+    $$QuotesTableCreateCompanionBuilder,
+    $$QuotesTableUpdateCompanionBuilder,
+    (Quote, BaseReferences<_$AppDatabase, $QuotesTable, Quote>),
+    Quote,
+    PrefetchHooks Function()> {
+  $$QuotesTableTableManager(_$AppDatabase db, $QuotesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$QuotesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$QuotesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$QuotesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> localId = const Value.absent(),
+            Value<int?> serverId = const Value.absent(),
+            Value<String> content = const Value.absent(),
+            Value<String> author = const Value.absent(),
+            Value<String?> source = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<bool> isSynced = const Value.absent(),
+            Value<String?> syncAction = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
+            Value<DateTime?> updatedAt = const Value.absent(),
+          }) =>
+              QuotesCompanion(
+            localId: localId,
+            serverId: serverId,
+            content: content,
+            author: author,
+            source: source,
+            isActive: isActive,
+            isSynced: isSynced,
+            syncAction: syncAction,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> localId = const Value.absent(),
+            Value<int?> serverId = const Value.absent(),
+            required String content,
+            required String author,
+            Value<String?> source = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<bool> isSynced = const Value.absent(),
+            Value<String?> syncAction = const Value.absent(),
+            Value<DateTime?> createdAt = const Value.absent(),
+            Value<DateTime?> updatedAt = const Value.absent(),
+          }) =>
+              QuotesCompanion.insert(
+            localId: localId,
+            serverId: serverId,
+            content: content,
+            author: author,
+            source: source,
+            isActive: isActive,
+            isSynced: isSynced,
+            syncAction: syncAction,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$QuotesTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $QuotesTable,
+    Quote,
+    $$QuotesTableFilterComposer,
+    $$QuotesTableOrderingComposer,
+    $$QuotesTableAnnotationComposer,
+    $$QuotesTableCreateCompanionBuilder,
+    $$QuotesTableUpdateCompanionBuilder,
+    (Quote, BaseReferences<_$AppDatabase, $QuotesTable, Quote>),
+    Quote,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
   $$CacheEntriesTableTableManager get cacheEntries =>
       $$CacheEntriesTableTableManager(_db, _db.cacheEntries);
+  $$QuotesTableTableManager get quotes =>
+      $$QuotesTableTableManager(_db, _db.quotes);
 }

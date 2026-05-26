@@ -20,7 +20,7 @@ const _menuItems = [
     color: Colors.indigo,
     isGallery: true,
   ),
-  _MenuItem(label: 'Menu 01', icon: Icons.track_changes, color: Colors.purple),
+  _MenuItem(label: 'Kutipan', icon: Icons.format_quote_rounded, color: Colors.indigo),
   _MenuItem(
       label: 'Menu 02', icon: Icons.military_tech, color: Colors.deepOrange),
   _MenuItem(label: 'Menu 03', icon: Icons.show_chart, color: Colors.teal),

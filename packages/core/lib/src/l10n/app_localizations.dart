@@ -907,6 +907,216 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tap palet warna untuk pilih warna'**
   String get gallerySectionColorPickerDesc;
+
+  /// No description provided for @quotesTitle.
+  ///
+  /// In id, this message translates to:
+  /// **'Manajemen Kutipan'**
+  String get quotesTitle;
+
+  /// No description provided for @quotesEmpty.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada kutipan. Mulai tambahkan inspirasi Anda!'**
+  String get quotesEmpty;
+
+  /// No description provided for @quotesAdd.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah Kutipan'**
+  String get quotesAdd;
+
+  /// No description provided for @quotesCreate.
+  ///
+  /// In id, this message translates to:
+  /// **'Buat Kutipan Baru'**
+  String get quotesCreate;
+
+  /// No description provided for @quotesEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Edit Kutipan'**
+  String get quotesEdit;
+
+  /// No description provided for @quotesDelete.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus Kutipan'**
+  String get quotesDelete;
+
+  /// No description provided for @quotesDeleteConfirm.
+  ///
+  /// In id, this message translates to:
+  /// **'Apakah Anda yakin ingin menghapus kutipan ini?'**
+  String get quotesDeleteConfirm;
+
+  /// No description provided for @quotesDeleteSuccess.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan berhasil dihapus'**
+  String get quotesDeleteSuccess;
+
+  /// No description provided for @quotesSaveSuccess.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan berhasil disimpan'**
+  String get quotesSaveSuccess;
+
+  /// No description provided for @quotesUpdateSuccess.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan berhasil diperbarui'**
+  String get quotesUpdateSuccess;
+
+  /// No description provided for @quotesTextLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi Kutipan'**
+  String get quotesTextLabel;
+
+  /// No description provided for @quotesTextHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Tulis isi kutipan di sini...'**
+  String get quotesTextHint;
+
+  /// No description provided for @quotesTextValidation.
+  ///
+  /// In id, this message translates to:
+  /// **'Isi kutipan minimal 5 karakter'**
+  String get quotesTextValidation;
+
+  /// No description provided for @quotesAuthorLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama Penulis / Tokoh'**
+  String get quotesAuthorLabel;
+
+  /// No description provided for @quotesAuthorHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Contoh: Ir. Soekarno'**
+  String get quotesAuthorHint;
+
+  /// No description provided for @quotesAuthorValidation.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama penulis wajib diisi'**
+  String get quotesAuthorValidation;
+
+  /// No description provided for @quotesSourceLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Sumber (opsional)'**
+  String get quotesSourceLabel;
+
+  /// No description provided for @quotesSourceHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Contoh: Buku, Pidato, Wawancara'**
+  String get quotesSourceHint;
+
+  /// No description provided for @quotesIsActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Status Aktif'**
+  String get quotesIsActive;
+
+  /// No description provided for @quotesMenuLabel.
+  ///
+  /// In id, this message translates to:
+  /// **'Kutipan'**
+  String get quotesMenuLabel;
+
+  /// No description provided for @quotesSyncPending.
+  ///
+  /// In id, this message translates to:
+  /// **'Menunggu Sinkronisasi'**
+  String get quotesSyncPending;
+
+  /// No description provided for @quotesSyncOfflineEdit.
+  ///
+  /// In id, this message translates to:
+  /// **'Diedit Offline'**
+  String get quotesSyncOfflineEdit;
+
+  /// No description provided for @quotesSynced.
+  ///
+  /// In id, this message translates to:
+  /// **'Tersinkronisasi'**
+  String get quotesSynced;
+
+  /// No description provided for @quotesWorkingOffline.
+  ///
+  /// In id, this message translates to:
+  /// **'Bekerja Offline'**
+  String get quotesWorkingOffline;
+
+  /// No description provided for @quotesFilterAll.
+  ///
+  /// In id, this message translates to:
+  /// **'Semua'**
+  String get quotesFilterAll;
+
+  /// No description provided for @quotesFilterActive.
+  ///
+  /// In id, this message translates to:
+  /// **'Aktif'**
+  String get quotesFilterActive;
+
+  /// No description provided for @quotesFilterInactive.
+  ///
+  /// In id, this message translates to:
+  /// **'Nonaktif'**
+  String get quotesFilterInactive;
+
+  /// No description provided for @quotesSortAZ.
+  ///
+  /// In id, this message translates to:
+  /// **'A-Z Penulis'**
+  String get quotesSortAZ;
+
+  /// No description provided for @quotesSortNewest.
+  ///
+  /// In id, this message translates to:
+  /// **'Terbaru'**
+  String get quotesSortNewest;
+
+  /// No description provided for @quotesSearchHint.
+  ///
+  /// In id, this message translates to:
+  /// **'Cari kutipan atau penulis...'**
+  String get quotesSearchHint;
+
+  /// No description provided for @quotesRetry.
+  ///
+  /// In id, this message translates to:
+  /// **'Coba Lagi'**
+  String get quotesRetry;
+
+  /// No description provided for @quotesLoadError.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal Memuat Data'**
+  String get quotesLoadError;
+
+  /// No description provided for @quotesSave.
+  ///
+  /// In id, this message translates to:
+  /// **'Simpan Kutipan'**
+  String get quotesSave;
+
+  /// No description provided for @quotesCancel.
+  ///
+  /// In id, this message translates to:
+  /// **'Batal'**
+  String get quotesCancel;
+
+  /// No description provided for @quotesConfirmDelete.
+  ///
+  /// In id, this message translates to:
+  /// **'Hapus'**
+  String get quotesConfirmDelete;
 }
 
 class _AppLocalizationsDelegate

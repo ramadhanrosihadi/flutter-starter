@@ -1,10 +1,7 @@
-import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../auth/presentation/auth_provider.dart';
-import '../../auth/presentation/auth_state.dart';
 import 'onboarding_notifier.dart';
 
 /// Premium splash screen with animated fade-in branding.
@@ -57,13 +54,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       return;
     }
 
-    // Check auth status.
-    final authState = ref.read(authProvider);
-    if (authState is AuthAuthenticated) {
-      if (mounted) context.go('/');
-    } else {
-      if (mounted) context.go('/login');
-    }
+    // Always go to home — login is optional via home menu.
+    if (mounted) context.go('/');
   }
 
   @override

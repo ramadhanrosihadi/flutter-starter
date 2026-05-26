@@ -433,4 +433,111 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get gallerySectionColorPickerDesc =>
       'Tap palet warna untuk pilih warna';
+
+  @override
+  String get quotesTitle => 'Manajemen Kutipan';
+
+  @override
+  String get quotesEmpty =>
+      'Belum ada kutipan. Mulai tambahkan inspirasi Anda!';
+
+  @override
+  String get quotesAdd => 'Tambah Kutipan';
+
+  @override
+  String get quotesCreate => 'Buat Kutipan Baru';
+
+  @override
+  String get quotesEdit => 'Edit Kutipan';
+
+  @override
+  String get quotesDelete => 'Hapus Kutipan';
+
+  @override
+  String get quotesDeleteConfirm =>
+      'Apakah Anda yakin ingin menghapus kutipan ini?';
+
+  @override
+  String get quotesDeleteSuccess => 'Kutipan berhasil dihapus';
+
+  @override
+  String get quotesSaveSuccess => 'Kutipan berhasil disimpan';
+
+  @override
+  String get quotesUpdateSuccess => 'Kutipan berhasil diperbarui';
+
+  @override
+  String get quotesTextLabel => 'Isi Kutipan';
+
+  @override
+  String get quotesTextHint => 'Tulis isi kutipan di sini...';
+
+  @override
+  String get quotesTextValidation => 'Isi kutipan minimal 5 karakter';
+
+  @override
+  String get quotesAuthorLabel => 'Nama Penulis / Tokoh';
+
+  @override
+  String get quotesAuthorHint => 'Contoh: Ir. Soekarno';
+
+  @override
+  String get quotesAuthorValidation => 'Nama penulis wajib diisi';
+
+  @override
+  String get quotesSourceLabel => 'Sumber (opsional)';
+
+  @override
+  String get quotesSourceHint => 'Contoh: Buku, Pidato, Wawancara';
+
+  @override
+  String get quotesIsActive => 'Status Aktif';
+
+  @override
+  String get quotesMenuLabel => 'Kutipan';
+
+  @override
+  String get quotesSyncPending => 'Menunggu Sinkronisasi';
+
+  @override
+  String get quotesSyncOfflineEdit => 'Diedit Offline';
+
+  @override
+  String get quotesSynced => 'Tersinkronisasi';
+
+  @override
+  String get quotesWorkingOffline => 'Bekerja Offline';
+
+  @override
+  String get quotesFilterAll => 'Semua';
+
+  @override
+  String get quotesFilterActive => 'Aktif';
+
+  @override
+  String get quotesFilterInactive => 'Nonaktif';
+
+  @override
+  String get quotesSortAZ => 'A-Z Penulis';
+
+  @override
+  String get quotesSortNewest => 'Terbaru';
+
+  @override
+  String get quotesSearchHint => 'Cari kutipan atau penulis...';
+
+  @override
+  String get quotesRetry => 'Coba Lagi';
+
+  @override
+  String get quotesLoadError => 'Gagal Memuat Data';
+
+  @override
+  String get quotesSave => 'Simpan Kutipan';
+
+  @override
+  String get quotesCancel => 'Batal';
+
+  @override
+  String get quotesConfirmDelete => 'Hapus';
 }

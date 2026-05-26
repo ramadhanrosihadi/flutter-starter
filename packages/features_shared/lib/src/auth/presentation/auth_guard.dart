@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'auth_provider.dart';
 import 'auth_state.dart';
 
-/// Public routes that should NOT be redirected to /login.
-const _publicRoutes = {'/splash', '/onboarding', '/login'};
 
 /// Compatible with GoRouter's [redirect] callback: `redirect: authRedirect`.
 ///
@@ -25,7 +23,7 @@ String? authRedirect(BuildContext context, GoRouterState state) {
   final isAuthenticated = authState is AuthAuthenticated;
   final isOnLoginPage = location == '/login';
 
-  if (!isAuthenticated && !isOnLoginPage) return '/login';
+  // If user is authenticated and on login page, go to home
   if (isAuthenticated && isOnLoginPage) return '/';
   return null;
 }

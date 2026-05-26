@@ -6,4 +6,9 @@ abstract final class AppRoutes {
   static const String profile = '/profile';
   static const String notifications = '/notifications';
   static const String settings = '/settings';
+
+  // Quotes
+  static const String quotes = '/quotes';
+  static const String createQuote = '/quotes/create';
+  static const String editQuote = '/quotes/edit';
 }

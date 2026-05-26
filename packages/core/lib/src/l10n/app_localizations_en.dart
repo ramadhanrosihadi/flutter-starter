@@ -431,4 +431,110 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get gallerySectionColorPickerDesc =>
       'Tap color palette to select color';
+
+  @override
+  String get quotesTitle => 'Quote Management';
+
+  @override
+  String get quotesEmpty => 'No quotes yet. Start adding your inspirations!';
+
+  @override
+  String get quotesAdd => 'Add Quote';
+
+  @override
+  String get quotesCreate => 'Create New Quote';
+
+  @override
+  String get quotesEdit => 'Edit Quote';
+
+  @override
+  String get quotesDelete => 'Delete Quote';
+
+  @override
+  String get quotesDeleteConfirm =>
+      'Are you sure you want to delete this quote?';
+
+  @override
+  String get quotesDeleteSuccess => 'Quote deleted successfully';
+
+  @override
+  String get quotesSaveSuccess => 'Quote saved successfully';
+
+  @override
+  String get quotesUpdateSuccess => 'Quote updated successfully';
+
+  @override
+  String get quotesTextLabel => 'Quote Text';
+
+  @override
+  String get quotesTextHint => 'Write your quote here...';
+
+  @override
+  String get quotesTextValidation => 'Quote text must be at least 5 characters';
+
+  @override
+  String get quotesAuthorLabel => 'Author / Figure Name';
+
+  @override
+  String get quotesAuthorHint => 'Example: Albert Einstein';
+
+  @override
+  String get quotesAuthorValidation => 'Author name is required';
+
+  @override
+  String get quotesSourceLabel => 'Source (optional)';
+
+  @override
+  String get quotesSourceHint => 'Example: Book, Speech, Interview';
+
+  @override
+  String get quotesIsActive => 'Active Status';
+
+  @override
+  String get quotesMenuLabel => 'Quotes';
+
+  @override
+  String get quotesSyncPending => 'Pending Sync';
+
+  @override
+  String get quotesSyncOfflineEdit => 'Edited Offline';
+
+  @override
+  String get quotesSynced => 'Synced';
+
+  @override
+  String get quotesWorkingOffline => 'Working Offline';
+
+  @override
+  String get quotesFilterAll => 'All';
+
+  @override
+  String get quotesFilterActive => 'Active';
+
+  @override
+  String get quotesFilterInactive => 'Inactive';
+
+  @override
+  String get quotesSortAZ => 'A-Z Author';
+
+  @override
+  String get quotesSortNewest => 'Newest';
+
+  @override
+  String get quotesSearchHint => 'Search quotes or authors...';
+
+  @override
+  String get quotesRetry => 'Retry';
+
+  @override
+  String get quotesLoadError => 'Failed to Load Data';
+
+  @override
+  String get quotesSave => 'Save Quote';
+
+  @override
+  String get quotesCancel => 'Cancel';
+
+  @override
+  String get quotesConfirmDelete => 'Delete';
 }

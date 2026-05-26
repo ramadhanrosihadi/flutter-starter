@@ -17,16 +17,66 @@ class CacheEntries extends Table {
   IntColumn get ttlSeconds => integer().nullable()();
 }
 
+/// Quotes table for offline-first quote management.
+///
+/// Supports full CRUD with sync tracking via [isSynced] and [syncAction].
+/// The [localId] is the local primary key; [id] is the server-assigned ID
+/// which may be null for quotes created while offline.
+///
+/// Note: The quote text is stored in [content] (not `text`) to avoid
+/// shadowing Drift's built-in `text()` column builder method.
+class Quotes extends Table {
+  /// Local auto-increment primary key.
+  IntColumn get localId => integer().autoIncrement()();
+
+  /// Server-assigned ID. Null when created offline and not yet synced.
+  IntColumn get serverId => integer().nullable()();
+
+  /// The quote text content.
+  /// Named `content` to avoid shadowing Drift's `text()` method.
+  TextColumn get content => text()();
+
+  /// The quote author name.
+  TextColumn get author => text()();
+
+  /// Optional source of the quote (book, speech, etc.).
+  TextColumn get source => text().nullable()();
+
+  /// Whether the quote is active.
+  BoolColumn get isActive =>
+      boolean().withDefault(const Constant(true))();
+
+  /// Whether this record has been synced with the server.
+  BoolColumn get isSynced =>
+      boolean().withDefault(const Constant(false))();
+
+  /// Pending sync action: 'create', 'update', 'delete', or null.
+  TextColumn get syncAction => text().nullable()();
+
+  DateTimeColumn get createdAt => dateTime().nullable()();
+  DateTimeColumn get updatedAt => dateTime().nullable()();
+}
+
 /// Main application database using Drift (SQLite).
 ///
-/// Provides structured offline storage with a generic cache table.
-/// Feature-specific tables can be added to [tables] as needed.
-@DriftDatabase(tables: [CacheEntries])
+/// Provides structured offline storage with a generic cache table
+/// and feature-specific tables (e.g. [Quotes]).
+@DriftDatabase(tables: [CacheEntries, Quotes])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          if (from < 2) {
+            await m.createTable(quotes);
+          }
+        },
+      );
 
   static QueryExecutor _openConnection() {
     return driftDatabase(name: 'app_cache');
