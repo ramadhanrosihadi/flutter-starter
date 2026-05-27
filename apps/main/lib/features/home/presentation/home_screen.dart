@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:core/core.dart';
 import 'package:features_shared/features_shared.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'home_provider.dart';
 import 'widgets/home_user_header.dart';
@@ -16,32 +17,12 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
     final isAuthenticated = authState is AuthAuthenticated;
-    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: SafeArea(
         bottom: false,
         child: CustomScrollView(
           slivers: [
-            SliverAppBar(
-              floating: true,
-              snap: true,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              elevation: 0,
-              actions: [
-                if (!isAuthenticated)
-                  TextButton.icon(
-                    onPressed: () => context.push('/login'),
-                    icon: const Icon(Icons.login_rounded, size: 18),
-                    label: Text(l10n.login),
-                  ),
-                IconButton(
-                  icon: const Icon(Icons.settings_outlined),
-                  onPressed: () => context.push(AppRoutes.settings),
-                  tooltip: l10n.settings,
-                ),
-              ],
-            ),
             SliverToBoxAdapter(
               child: isAuthenticated
                   ? _buildAuthenticatedHeader(context, ref)
@@ -66,9 +47,15 @@ class HomeScreen extends ConsumerWidget {
                 },
               ),
             ),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 24),
+                child: _HomeFooter(),
+              ),
+            ),
             SliverToBoxAdapter(
               child: SizedBox(
-                height: 32 + MediaQuery.of(context).padding.bottom,
+                height: 16 + MediaQuery.of(context).padding.bottom,
               ),
             ),
           ],
@@ -92,6 +79,7 @@ class HomeScreen extends ConsumerWidget {
         profile: profile,
         onEditTap: () => context.push(AppRoutes.editProfile),
         onProfileTap: () => context.push(AppRoutes.profile),
+        onSettingsTap: () => context.push(AppRoutes.settings),
       ),
     );
   }
@@ -102,8 +90,9 @@ class HomeScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: 56,
@@ -138,6 +127,104 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
+          ),
+          IconButton(
+            onPressed: () => context.push(AppRoutes.settings),
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: l10n.settings,
+          ),
+          const SizedBox(width: 8),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(72, 36),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              backgroundColor: colorScheme.primary,
+              foregroundColor: colorScheme.onPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              elevation: 0,
+            ),
+            onPressed: () => context.push('/login'),
+            child: Text(
+              l10n.login,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HomeFooter extends StatefulWidget {
+  const _HomeFooter();
+
+  @override
+  State<_HomeFooter> createState() => _HomeFooterState();
+}
+
+class _HomeFooterState extends State<_HomeFooter> {
+  String _appName = '';
+  String _appVersion = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAppInfo();
+  }
+
+  Future<void> _loadAppInfo() async {
+    try {
+      final info = await PackageInfo.fromPlatform();
+      if (mounted) {
+        setState(() {
+          _appName = info.appName.isNotEmpty ? info.appName : 'Starter App';
+          _appVersion = '${info.version}+${info.buildNumber}';
+        });
+      }
+    } catch (_) {}
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_appName.isEmpty) return const SizedBox.shrink();
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: Image.asset(
+                  'packages/features_shared/assets/logo.png',
+                  width: 24,
+                  height: 24,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                _appName,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Versi $_appVersion',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.4),
+                ),
           ),
         ],
       ),

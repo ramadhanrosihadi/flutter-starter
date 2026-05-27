@@ -38,14 +38,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       title: 'Cepat & Efisien',
       description: 'Arsitektur modern dengan Riverpod, Go Router, dan Drift '
           'untuk pengalaman pengembangan yang cepat dan andal.',
-      color: Color(0xFF6366F1),
+      color: Color(0xFF18181B),
     ),
     _OnboardingPage(
       icon: Icons.shield_rounded,
       title: 'Aman & Terpercaya',
       description: 'Autentikasi biometrik, auto-refresh token, dan penyimpanan '
           'terenkripsi untuk menjaga data pengguna tetap aman.',
-      color: Color(0xFF10B981),
+      color: Color(0xFF27272A),
     ),
     _OnboardingPage(
       icon: Icons.palette_rounded,
@@ -53,7 +53,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       description:
           'Multi-flavor, lokalisasi, tema dinamis, dan push notification '
           'sudah tersedia — langsung mulai membangun fitur Anda.',
-      color: Color(0xFFF59E0B),
+      color: Color(0xFF3F3F46),
     ),
   ];
 

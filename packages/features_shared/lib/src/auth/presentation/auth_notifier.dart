@@ -116,4 +116,16 @@ class AuthNotifier extends _$AuthNotifier {
       state = const AuthError('Verifikasi biometric gagal');
     }
   }
+
+  Future<void> uploadAvatar(String filePath) async {
+    if (state is! AuthAuthenticated) return;
+    
+    final repository = ref.read(authRepositoryProvider);
+    try {
+      final updatedUser = await repository.uploadAvatar(filePath);
+      state = AuthAuthenticated(updatedUser);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

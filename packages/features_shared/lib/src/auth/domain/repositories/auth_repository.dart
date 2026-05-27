@@ -10,4 +10,5 @@ abstract class AuthRepository {
   });
   Future<User?> getCurrentUser();
   Future<User> updateProfile({required String name, required String email});
+  Future<User> uploadAvatar(String filePath);
 }

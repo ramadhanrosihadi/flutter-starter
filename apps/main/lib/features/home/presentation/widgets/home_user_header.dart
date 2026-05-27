@@ -8,11 +8,13 @@ class HomeUserHeader extends StatelessWidget {
     required this.profile,
     required this.onEditTap,
     required this.onProfileTap,
+    required this.onSettingsTap,
   });
 
   final UserProfile profile;
   final VoidCallback onEditTap;
   final VoidCallback onProfileTap;
+  final VoidCallback onSettingsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,11 @@ class HomeUserHeader extends StatelessWidget {
             onPressed: onEditTap,
             icon: const Icon(Icons.edit_outlined),
             tooltip: 'Edit profil',
+          ),
+          IconButton(
+            onPressed: onSettingsTap,
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Pengaturan',
           ),
         ],
       ),

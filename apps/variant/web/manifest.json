@@ -1,11 +1,11 @@
 {
-    "name": "Flutter Starter Variant",
-    "short_name": "Variant",
+    "name": "Starter Varian",
+    "short_name": "Starter Varian",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Flutter Starter variant flavor.",
+    "description": "Starter Varian flavor.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -44,4 +44,17 @@ class FakeAuthRepository implements AuthRepository {
     );
     return _currentUser!;
   }
+
+  @override
+  Future<User> uploadAvatar(String filePath) async {
+    _currentUser = User(
+      id: _currentUser?.id ?? 'dev-001',
+      name: _currentUser?.name ?? 'Dev User',
+      email: _currentUser?.email ?? 'dev@example.com',
+      phone: _currentUser?.phone,
+      avatarUrl: filePath,
+      roles: _currentUser?.roles ?? const [],
+    );
+    return _currentUser!;
+  }
 }

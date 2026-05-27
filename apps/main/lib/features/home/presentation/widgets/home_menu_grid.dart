@@ -74,6 +74,12 @@ class _MenuCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    
+    final cellBgColor = colorScheme.primaryContainer;
+    final iconColor = colorScheme.onPrimaryContainer;
+
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -83,25 +89,17 @@ class _MenuCell extends StatelessWidget {
             width: 56,
             height: 56,
             decoration: BoxDecoration(
-              color: item.isGallery ? item.color : item.color,
+              color: cellBgColor,
               borderRadius: BorderRadius.circular(16),
-              boxShadow: item.isGallery
-                  ? [
-                      BoxShadow(
-                          color: item.color.withOpacity(0.35),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3))
-                    ]
-                  : null,
             ),
-            child: Icon(item.icon, color: Colors.white, size: 28),
+            child: Icon(item.icon, color: iconColor, size: 26),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           Text(
             item.label,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  fontWeight:
-                      item.isGallery ? FontWeight.bold : FontWeight.normal,
+            style: theme.textTheme.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: colorScheme.onSurface.withValues(alpha: 0.8),
                 ),
             textAlign: TextAlign.center,
             maxLines: 2,

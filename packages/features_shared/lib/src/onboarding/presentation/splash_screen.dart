@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'onboarding_notifier.dart';
 
@@ -22,6 +23,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late final AnimationController _controller;
   late final Animation<double> _fadeAnimation;
   late final Animation<double> _scaleAnimation;
+  String _appName = 'Starter App';
 
   @override
   void initState() {
@@ -39,7 +41,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     );
     _controller.forward();
 
+    _loadAppName();
+
     Future.delayed(const Duration(seconds: 2), _checkNavigation);
+  }
+
+  Future<void> _loadAppName() async {
+    try {
+      final info = await PackageInfo.fromPlatform();
+      if (mounted) {
+        setState(() {
+          // Fallback to title case of folder if blank
+          _appName = info.appName.isNotEmpty ? info.appName : 'Starter App';
+        });
+      }
+    } catch (_) {}
   }
 
   Future<void> _checkNavigation() async {
@@ -89,20 +105,24 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       color: colorScheme.onPrimary.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Icon(
-                      Icons.rocket_launch_rounded,
-                      size: 72,
-                      color: colorScheme.onPrimary,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'packages/features_shared/assets/logo.png',
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Flutter Starter',
+                    _appName,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                           color: colorScheme.onPrimary,
                           fontWeight: FontWeight.bold,

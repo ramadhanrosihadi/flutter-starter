@@ -1,10 +1,8 @@
 import 'package:core/core.dart';
 import 'package:features_shared/features_shared.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'dev/fake_auth_repository.dart';
 import 'router/app_router.dart';
 
 class App extends StatelessWidget {
@@ -19,8 +17,7 @@ class App extends StatelessWidget {
       overrides: [
         storageServiceProvider.overrideWithValue(storage),
         appDatabaseProvider.overrideWithValue(database),
-        if (kDebugMode)
-          authRepositoryProvider.overrideWithValue(FakeAuthRepository()),
+
       ],
       child: const _AppRouter(),
     );
@@ -51,7 +48,7 @@ class _AppRouterState extends ConsumerState<_AppRouter> {
     final locale = ref.watch(localeProvider).asData?.value;
 
     return MaterialApp.router(
-      title: 'Flutter Starter Variant',
+      title: 'Starter Varian',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: themeMode,

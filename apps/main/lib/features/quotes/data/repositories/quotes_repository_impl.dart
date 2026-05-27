@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:core/core.dart';
-import 'package:dio/dio.dart';
 import 'package:drift/drift.dart';
 
 import '../../domain/entities/quote_entity.dart';

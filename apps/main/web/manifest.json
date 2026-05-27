@@ -1,6 +1,6 @@
 {
-    "name": "app_main",
-    "short_name": "app_main",
+    "name": "Starter Main",
+    "short_name": "Starter Main",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
