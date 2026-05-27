@@ -18,6 +18,8 @@ Kami membagi konsep-konsep tingkat lanjut di proyek ini menjadi beberapa bagian 
 | 4 | [🗄️ Drift Database & Local Cache](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/04_local_cache_drift.md) | Mengerti implementasi penyimpanan offline SQLite menggunakan Drift, skema tabel, mekanisme cache generik, dan kebijakan *TTL (Time-to-Live)*. | ⭐⭐⭐⭐ (Cukup Menantang) |
 | 5 | [🧱 Mason Bricks & Automasi](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/05_mason_bricks.md) | Belajar cara menghemat waktu dengan generator otomatis `mason` untuk membuat fitur baru secara instan dalam 1 detik. | ⭐⭐ (Mudah) |
 | 6 | [🎯 Barrel Exports & L10n](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/06_barrel_exports_l10n.md) | Mengerti pentingnya *barrel exports* untuk kebersihan import dan bagaimana sistem multi-bahasa (*localization*) terintegrasi otomatis. | ⭐⭐ (Mudah) |
+| 7 | [🎨 Multi-Flavor & Environment](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/07_multi_flavor_environment.md) | Memahami konsep pemisahan Flavor (Main vs Variant) dan Environment (Dev, Staging, Prod), serta cara mengompilasi dan menjalankannya. | ⭐⭐⭐ (Sedang) |
+| 8 | [🌐 Mengimplementasi API Baru](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/08_implementasi_api_baru.md) | Rangkaian langkah-demi-langkah konkrit dan lengkap membangun integrasi API REST baru dari Domain hingga Presentation Layer. | ⭐⭐⭐⭐ (Cukup Menantang) |
 
 ---
 
@@ -27,7 +29,8 @@ Sebelum Anda masuk menulis kode, pastikan Anda memahami beberapa prinsip emas pr
 
 1. **Anti-Manual Boilerplate**: Jangan menulis folder Clean Architecture atau Provider Riverpod secara manual dari nol. Gunakan `mason make feature` dan jalankan `dart run melos run codegen`.
 2. **Ketat dengan Aturan Impor**: Kode di folder `packages/core` tidak boleh mengimpor apa pun dari `features_shared` atau `apps`. Ini demi menjaga modularitas dan kebersihan *dependency tree*.
-3. **Selalu Jalankan Tes**: Proyek ini memiliki safety net berupa unit & widget test. Sebelum melakukan *push* kode baru, pastikan semua tes lolos dengan perintah `dart run melos run test`.
+3. **Pahami Flavor vs Environment**: Jangan pernah hardcode URL backend. Selalu gunakan konfigurasi per-flavor dan per-environment.
+4. **Selalu Jalankan Tes**: Proyek ini memiliki safety net berupa unit & widget test. Sebelum melakukan *push* kode baru, pastikan semua tes lolos dengan perintah `dart run melos run test`.
 
 *Mari mulai perjalanan belajar Anda dengan menekan tautan modul pertama di bawah ini!*
 

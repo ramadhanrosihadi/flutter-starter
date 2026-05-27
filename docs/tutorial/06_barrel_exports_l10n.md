@@ -92,16 +92,8 @@ Sistem akan secara otomatis mendeteksi bahasa perangkat pengguna saat ini (atau 
 
 ---
 
-## 🎉 Selamat Belajar & Selamat Berkontribusi!
+## 🎨 Langkah Terakhir
 
-Kini Anda telah menguasai konsep-konsep kunci tingkat enterprise yang ada di starter project ini:
-1. **Struktur Monorepo & Melos** yang modular.
-2. **Clean Architecture** yang terstandarisasi.
-3. **Riverpod Generator** modern untuk manajemen state.
-4. **Drift SQLite** untuk database offline yang efisien.
-5. **Mason CLI** untuk automasi pembuatan kode boilerplate.
-6. **Barrel Exports & L10n** untuk kerapian kode dan dukungan multibahasa.
+Modul berikutnya akan menjelaskan bagaimana aplikasi Utama (main) dan Varian dipisahkan menggunakan Flavor dan bagaimana Environment dikonfigurasi!
 
-Jika Anda memiliki pertanyaan lebih lanjut saat bekerja, Anda bisa merujuk ke berkas [README.md](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/README.md) di root proyek atau bertanya langsung kepada AI Agent yang ramah ini!
-
-*Selamat menulis kode Flutter berkualitas tinggi!* 🚀
+👉 **[Lanjut ke Modul 7: Multi-Flavor & Environment](file:///c:/Users/62822/Documents/Work/flutter/flutter-starter/docs/tutorial/07_multi_flavor_environment.md)**

@@ -66,6 +66,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 96,
                     height: 96,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 96,
+                        height: 96,
+                        color: colorScheme.primaryContainer,
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          color: colorScheme.onPrimaryContainer,
+                          size: 32,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -73,24 +85,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     _appName,
                     style: theme.textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Versi $_appVersion',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface.withValues(alpha: 0.5),
-                        ),
+                      color: colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
                   ),
                 ],
                 const SizedBox(height: 48),
                 Text(
                   l10n.welcome,
                   style: theme.textTheme.titleMedium?.copyWith(
-                        color: colorScheme.primary,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    color: colorScheme.primary,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),

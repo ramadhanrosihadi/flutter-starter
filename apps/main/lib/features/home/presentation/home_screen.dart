@@ -204,6 +204,18 @@ class _HomeFooterState extends State<_HomeFooter> {
                   width: 24,
                   height: 24,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: 24,
+                      height: 24,
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: Icon(
+                        Icons.image_not_supported_outlined,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        size: 12,
+                      ),
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 8),
